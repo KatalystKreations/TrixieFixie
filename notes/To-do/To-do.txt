@@ -1,0 +1,145 @@
+THE GREAT TO-DO LIST
+---
+
+- *Add Mechanical Doors
+
+- Add cutscene features
+
+- stamina (climbing, running)
+
+- auto crouch under blocks
+
+- lighting (optional)
+
+- *enemies
+
+- moving platforms
+
+- spikes and obsticles
+
+- ledge grabbing
+
+- player hit state
+
+- player died state
+-
+
+- - Animations
+- player hit animation
+
+- player died animation
+
+- attack animation (building attack)
+
+- attack animation (wrench attack)
+
+- hit animation
+ 
+
+Completed
+---
+
+---1/20/26---
+
+* Finish level design level 1 √
+
+* Add speed run timer √
+
+* parallax background √
+
+---7/2/25---
+
+* redo Player sprites
+
+* redo turn Player sprite √
+
+* adjust wall dust √
+
+* Jump transition Player sprite √
+
+---7/1/25---
+
+* redo Wallslide Player sprite √
+
+
+---6/30/25---
+
+* robot slug √
+
+
+---6/29/25---
+
+* robot slug sprites √
+* adjust sprites
+
+
+---6/28/25---
+
+*redo slide player sprite √
+*redo crawl player sprite √
+
+
+---6/27/25---
+
+*redo run player sprite √
+
+
+---6/26/25---
+
+*redo crouch player sprite √
+
+
+---6/26/25---
+
+*redo Jump player sprite √
+*redo Fall player sprite √
+
+
+---6/25/25---
+
+*video editing √
+
+
+---6/24/25---
+
+*redo Idle player sprite √
+
+
+---6/23/25---
+
+*state machine √
+
+
+---6/22/25---
+
+*Goal / exit √
+
+ 
+---6/21/25---
+
+*check points √
+*create a tileset √
+*add slide boosting √
+
+
+---6/20/25---
+
+*out of bounds damage √
+*new slide sfx √
+*death √
+
+
+---6/19/25---
+
+*slash animation √
+*add crawling √
+*slide animation √
+*Make smooth turn around √
+
+
+---6/18/25---
+
+*SFX for everything for audio feedback √
+*wall slide animation √
+*dust sprites on everything for visual feedback √
+*fix jump up animation √

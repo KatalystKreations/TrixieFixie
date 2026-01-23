@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"MP3_SFX_Crickets",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":29.779593,
+  "exportDir":"",
+  "name":"MP3_SFX_Crickets",
+  "parent":{
+    "name":"Ambiance",
+    "path":"folders/Sounds/Ambiance.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"MP3_SFX_Crickets.mp3",
+  "volume":1.0,
+}

@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_lighten_1",
+  "name":"sh_lighten_1",
+  "parent":{
+    "name":"UltimateLightSystem",
+    "path":"folders/Shaders/UltimateLightSystem.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

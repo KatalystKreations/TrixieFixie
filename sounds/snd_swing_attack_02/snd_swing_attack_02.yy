@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_swing_attack_02",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.1570975,
+  "exportDir":"",
+  "name":"snd_swing_attack_02",
+  "parent":{
+    "name":"swordSwing",
+    "path":"folders/Sounds/Player/Sword/swordSwing.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_swing_attack_02.mp3",
+  "volume":0.6,
+}
