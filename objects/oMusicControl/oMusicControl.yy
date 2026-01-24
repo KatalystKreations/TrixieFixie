@@ -31,6 +31,7 @@
     {"$GMObjectProperty":"v2","%Name":"room_music","filters":[
         "GMSound",
       ],"listItems":[],"multiselect":false,"name":"room_music","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"volume","filters":[],"listItems":[],"multiselect":false,"name":"volume","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0.2","varDescription":"0 to 1","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

@@ -32,7 +32,9 @@ function sprite_index_is(_sprite_index = undefined){
 
 
 
-function sprite_animation_end(){
+function sprite_animation_end(_spr = sprite_index){
+	if sprite_index != _spr exit;
+		
 	if image_index > image_number-1 {
 		return true;
 		}else return false

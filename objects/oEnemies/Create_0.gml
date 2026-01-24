@@ -1,5 +1,6 @@
 spd = 1
 xspd = 0;
+yspd = 0;
 face = choose(1, -1);
 patrol_range = 100
 

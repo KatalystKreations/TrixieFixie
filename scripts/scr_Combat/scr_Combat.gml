@@ -15,7 +15,7 @@ enum FX_TYPE {
  * @param {real} origin_x Spawn x
  * @param {real} origin_y Spawn y
  * @param {any*} dir Direction to lauch
- * @param {asset.gmobject} [obj_proj]=oProjectile) What to shoot out.
+ * @param {id.instance<oprojectile>} [obj_proj]=oProjectile) What to shoot out.
  * @param {real} [speed]=5) How fast the projectile is.
  * @param {real} [damage]=0) How much damage it does.
  * @param {id.instance} [_owner]=id) Who shot it.
