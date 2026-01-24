@@ -1,6 +1,16 @@
 THE GREAT TO-DO LIST
 ---
 
+- Make Blueprints
+
+- Make UI / GUI/HUD / inventory
+
+- Make a more general enemies object
+
+- Add movement and collision to the Droopper
+
+- Allow Capsules to be destroyed/damaged
+
 - *Add Mechanical Doors
 
 - Add cutscene features
@@ -24,10 +34,10 @@ THE GREAT TO-DO LIST
 - player died state
 -
 
-- - Animations
-- player hit animation
+- - Animations -> Last in priority
+- player get hit animation
 
-- player died animation
+- player get KO'd animation
 
 - attack animation (building attack)
 
