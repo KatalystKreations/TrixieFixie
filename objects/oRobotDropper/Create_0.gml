@@ -1,6 +1,17 @@
-loaded = false;
-alarm[0] = aSECOND;
-dropping = false;
+// Attack
+	loaded = false;
+	alarm[0] = aSECOND;
+	dropping = false;
+
+//Move
+	moveDir 	= 0;
+	xspd 		= 0;
+	yspd 		= 0;
+	face 		= 1;
+	moveSpd 	= 5;
+
+
+
 
 
 cur_sprite = sprite_index;

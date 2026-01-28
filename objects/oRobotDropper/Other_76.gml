@@ -4,7 +4,7 @@ switch (event_data[? "message"]) {
 	 case "spawn_capsule": 
 		var dir = point_direction(x,y+25,oPlayer.x,oPlayer.y);
 			dir = clamp(dir, 250,290)
-			var pro = fire_projectile_dir(x,y+25, dir, oRobotDropperCapsule, 3, 10);
+			var pro = fire_projectile_dir(x,y+25, 270, oRobotDropperCapsule, 3, 10);
 			with (pro)
 			{
 				stop_on_collide = true;

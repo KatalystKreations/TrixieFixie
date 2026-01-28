@@ -49,53 +49,6 @@ function fadein(fadeInTo = 1, fadeSpd = 0.025){
 }
 
 /**
- * Make it look like it's glowing.
- * @param {real} [_border]=1 Size.
- * @param {constant.color} [_col]=c_white Color.
- */
-function draw_glow(_border = 1, _col = c_white){
-	var outline_color = _col;
-				var thickness = _border;
-				gpu_set_blendmode(bm_add)	
-				draw_sprite_ext(sprite_index, image_index, x - thickness, y - thickness, image_xscale, image_yscale, image_angle, outline_color, 1);
-				draw_sprite_ext(sprite_index, image_index, x + thickness, y - thickness, image_xscale, image_yscale, image_angle, outline_color, 1);
-				draw_sprite_ext(sprite_index, image_index, x - thickness, y + thickness, image_xscale, image_yscale, image_angle, outline_color, 1);
-				draw_sprite_ext(sprite_index, image_index, x + thickness, y + thickness, image_xscale, image_yscale, image_angle, outline_color, 1);
-				
-				gpu_set_blendmode(bm_normal)	
-}
-
-/**
- * Make it look like it's glowing.
- * @param {real} [_border]=1 Size.
- * @param {constant.color} [_col]=c_white Color.
- */
-function draw_one_glow(_border = 1, _col = c_white){
-	var outline_color = _col;
-	var thickness = _border;
-	gpu_set_blendmode(bm_add)	
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale + (thickness/20), image_yscale + (thickness/20), image_angle, outline_color, 1);
-	gpu_set_blendmode(bm_normal)	
-}
-
-/**
- * Makes objects look hovered over. Returns what is hovered over.
- */
-function draw_clickable(){
-	var _image_blend = #ffffff;
-	if (position_meeting(mouse_x, mouse_y, id)){
-		_image_blend = #636363
-		_id = id
-	}else {
-		_image_blend = #ffffff;
-		_id = undefined
-	}
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, _image_blend, image_alpha)
-	return _id
-}
-
-
-/**
  * Makes objects hover in place. (spd mulitplies by amplitude)
  * @param {real} [spd]=0.05 How fast it move up and down.
  * @param {real} [amplitude]=2 How much it moves up it down.

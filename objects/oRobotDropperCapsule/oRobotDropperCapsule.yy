@@ -10,8 +10,8 @@
   "name":"oRobotDropperCapsule",
   "overriddenProperties":[],
   "parent":{
-    "name":"Attack",
-    "path":"folders/Objects/Collisions/Attack.yy",
+    "name":"Enemies",
+    "path":"folders/Objects/Enemies.yy",
   },
   "parentObjectId":{
     "name":"oProjectile",

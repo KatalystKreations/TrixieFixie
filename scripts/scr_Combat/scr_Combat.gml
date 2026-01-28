@@ -201,10 +201,10 @@ if (hit_timer)
 }
 }
 
-function draw_hitFlash(){
+
+function draw_hitFlash(_glow_r = 2){
 	//get hit 
 	var _col = c_white;
-	//if (hp <= hp_danger_zone) _col = c_red
 	if (hit_flash){
 		draw_one_glow(0.5, _col)
 		shader_set(shd_Flash);
@@ -212,10 +212,12 @@ function draw_hitFlash(){
 
 	
 	shader_set_uniform_f(uni_add, sha_add, 0)
-	
+	// Draw self with Shader config
 	draw_self();
 	
+	// Reset to default;
 	shader_reset();
 	sha_add = 1
 }
+
 
