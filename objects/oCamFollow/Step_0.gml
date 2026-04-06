@@ -1,6 +1,6 @@
 if instance_exists(oPlayer){
 	x = oPlayer.x;
-	y = oPlayer.y;
+	y = oPlayer.y -50;
 }
 if instance_exists(oPlayer_2){
 	x = (oPlayer.x + oPlayer_2.x ) /2;

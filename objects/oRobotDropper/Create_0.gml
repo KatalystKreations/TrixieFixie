@@ -1,3 +1,6 @@
+
+event_inherited();
+
 // Attack
 	loaded = false;
 	alarm[0] = aSECOND;
@@ -14,9 +17,9 @@
 
 
 
-cur_sprite = sprite_index;
 /// @desc Start on first frame of an animation
 /// @returns {bool}
+cur_sprite = sprite_index;
 function check_sprite(){
 	if (cur_sprite != sprite_index) {
 		cur_sprite = sprite_index;

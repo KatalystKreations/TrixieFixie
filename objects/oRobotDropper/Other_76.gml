@@ -14,7 +14,7 @@ switch (event_data[? "message"]) {
 				turn_along_arc = false;
 				image_xscale = 1.7;
 				image_yscale = image_xscale;
-				enemy = choose(noone, oRobotSlug, oRobotSlug, oRobotSlug, oRobotSlug)
+				enemy = choose(noone, oRobotSlug, oRobotSlug, oRobotSlug)
 			}
 		break;
 }

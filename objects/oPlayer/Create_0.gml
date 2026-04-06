@@ -3,7 +3,7 @@
 //Moving
 	moveDir = 0;
 	moveSpd[0] = 5;
-	moveSpd[1] = 6.5;
+	moveSpd[1] = 6;
 	moveSpd[2] = 2.5;	//crawlspd
 	moveSpd[3] = 7.5;	//slideboost spd
 	xspd = 0;
@@ -52,7 +52,8 @@
 		jumpBufferTime = 5;
 	
 		
-
+col_tiles = layer_tilemap_get_id("MainTiles");
+collision = [oWall, col_tiles];
 
 //wall jumping / wall sliding
 	on_wall = false;
@@ -241,8 +242,8 @@ stateFree = function()
 	
 	
 	// Wall detection
-		 on_wall_left  = place_meeting(x - 1, y, oWall);
-		 on_wall_right = place_meeting(x + 1, y, oWall);
+		 on_wall_left  = place_meeting(x - 1, y, collision);
+		 on_wall_right = place_meeting(x + 1, y, collision);
 		 on_wall = on_wall_left || on_wall_right;
 		// Wall slide state
 			if (on_wall && !grounded) { 
@@ -318,8 +319,8 @@ stateOnWall = function()
 	side = bbox_right
 	//Wall Slide	
 		//detect which walls
-			 on_wall_left  = place_meeting(x - 1, y, oWall);
-			 on_wall_right = place_meeting(x + 1, y, oWall);
+			 on_wall_left  = place_meeting(x - 1, y, collision);
+			 on_wall_right = place_meeting(x + 1, y, collision);
 			 on_wall = on_wall_left || on_wall_right;
 		if (on_wall && !grounded && yspd > 0)
 		{

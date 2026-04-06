@@ -6,8 +6,8 @@
 	upKey = keyboard_check( ord("W") );
 	jumpKeyPressed = keyboard_check_pressed( ord("W") );
 	runKey = keyboard_check(vk_lshift);
-	grounded = place_meeting( x, y+1, oWall);
-	head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), oWall); 
+	grounded = place_meeting( x, y+1, collision);
+	head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), collision); 
 	//move direction and face (IMPORTANT)
 		moveDir = rightKey - leftKey;
 		if (moveDir != 0 &&  (wall_jump_delay == 0)) {face = sign(moveDir)}
@@ -55,17 +55,17 @@ if gamestate_is(GAMESTATE.PLAYING)	state();
 
 #region //X Collisions
 		var _subPixel = .5;
-		if place_meeting( x + xspd, y, oWall )
+		if place_meeting( x + xspd, y, collision )
 		{	
 			//slopes up
-				if (!place_meeting(x + xspd, y-1 - abs(xspd), oWall) && !downKey)
-					while place_meeting(x + xspd, y, oWall) {y-=_subPixel}
+				if (!place_meeting(x + xspd, y-1 - abs(xspd), collision) && !downKey)
+					while place_meeting(x + xspd, y, collision) {y-=_subPixel}
 			//anything else
 				else 
 				{
 					//check for tiny gaps between walls and player
 						var _pixelCheck = _subPixel * sign(xspd);
-						while ( !place_meeting( x + _pixelCheck, y, oWall ) ) { x += _pixelCheck }
+						while ( !place_meeting( x + _pixelCheck, y, collision ) ) { x += _pixelCheck }
 					//Collide
 					xspd = 0
 					slideTimer = 0;
@@ -79,17 +79,17 @@ if gamestate_is(GAMESTATE.PLAYING)	state();
 
 #region //Y Collisions 
 		//Edge Nudging
-			if (place_meeting( x, y+yspd, oWall ) && yspd < 0)
+			if (place_meeting( x, y+yspd, collision ) && yspd < 0)
 			{
-				if (!place_meeting( bbox_left, y+(yspd*2), oWall )) {x = bbox_left}
-				if (!place_meeting( bbox_right, y+(yspd*2), oWall )) {x = bbox_right}
+				if (!place_meeting( bbox_left, y+(yspd*2), collision )) {x = bbox_left}
+				if (!place_meeting( bbox_right, y+(yspd*2), collision )) {x = bbox_right}
 			}
 		_subPixel = .5;
-		if place_meeting( x, y+yspd, oWall )
+		if place_meeting( x, y+yspd, collision )
 		{
 			//check for tiny gaps between walls and player
 				var _pixelCheck = _subPixel * sign(yspd);
-				while ( !place_meeting( x, y + _pixelCheck, oWall ) ) {y+=_pixelCheck}
+				while ( !place_meeting( x, y + _pixelCheck, collision ) ) {y+=_pixelCheck}
 			//set speed to 0 to collide
 				yspd = 0;
 		}

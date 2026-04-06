@@ -1,5 +1,5 @@
 //Detect Ground
-onGround 	= place_meeting( x, y + 1, oWall );
+onGround 	= place_meeting( x, y + 1, collision );
 //Switch sprint speed
 runType 	= runKey;
 if (gamestate_is(GAMESTATE.PLAYING)) {
@@ -38,27 +38,27 @@ if (gamestate_is(GAMESTATE.PLAYING)) {
 	
 	#region X Collisions
 	var _subPixel = 0.5;
-	if place_meeting( x + xspd, y, oWall )
+	if place_meeting( x + xspd, y, collision )
 	{	
 		// Check for up slopes
-		if (!place_meeting(x + xspd, y - (1 + abs(xspd)), oWall) && !downKey) { 
+		if (!place_meeting(x + xspd, y - (1 + abs(xspd)), collision) && !downKey) { 
 			//Move up by small amount if moving on slope
-			while place_meeting(x + xspd, y, oWall) { y -= _subPixel; }
+			while place_meeting(x + xspd, y, collision) { y -= _subPixel; }
 		}
 		// If no up slope, check for ceiling slopes 
 		else
 		{
 			//Ceiling slopes
-			if (!place_meeting(x + xspd, y + abs(xspd)+1, oWall))
+			if (!place_meeting(x + xspd, y + abs(xspd)+1, collision))
 			{
-				while place_meeting(x+xspd, y, oWall) {y += _subPixel}
+				while place_meeting(x+xspd, y, collision) {y += _subPixel}
 			}
 			//normal collison
 			else
 			{
 				//Check for tiny gaps between walls and player
 				var _pixelCheck = _subPixel * sign(xspd);
-				while !place_meeting(x + _pixelCheck, y, oWall) { x += _pixelCheck; }
+				while !place_meeting(x + _pixelCheck, y, collision) { x += _pixelCheck; }
 				
 				//"Collide"
 				xspd = 0;
@@ -66,10 +66,10 @@ if (gamestate_is(GAMESTATE.PLAYING)) {
 		}
 	}
 	// Check for Down Slopes
-	if  (yspd >= 0 && !place_meeting( x + xspd, y + 1, oWall ) && place_meeting( x + xspd, y + abs(xspd)+1, oWall ))
+	if  (yspd >= 0 && !place_meeting( x + xspd, y + 1, collision ) && place_meeting( x + xspd, y + abs(xspd)+1, collision ))
 	{
 		//precisely move down slope
-		while !place_meeting(x + xspd, y + _subPixel, oWall) {y += _subPixel;}
+		while !place_meeting(x + xspd, y + _subPixel, collision) {y += _subPixel;}
 	}
 	#endregion
 
@@ -161,11 +161,11 @@ if (gamestate_is(GAMESTATE.PLAYING)) {
 	
 	#region Y Collisions 
 	_subPixel = 0.5;
-	if place_meeting( x, y+yspd, oWall )
+	if place_meeting( x, y+yspd, collision )
 	{
 		//Check for tiny gaps between walls and player
 		var _pixelCheck = _subPixel * sign(yspd);
-		while ( !place_meeting( x, y + _pixelCheck, oWall ) ) { y += _pixelCheck; }
+		while ( !place_meeting( x, y + _pixelCheck, collision ) ) { y += _pixelCheck; }
 		//Bonk code
 			if yspd < 0 {jumpTimer = 0;}
 		//Set speed to 0 to collide

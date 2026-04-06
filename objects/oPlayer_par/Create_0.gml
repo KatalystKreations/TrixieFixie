@@ -48,9 +48,8 @@
 
 
 
-
-
-
+col_tiles = layer_tilemap_get_id("MainTiles");
+collision = [oWall, col_tiles];
 
 /// @desc Create a dust object.
 /// @param {asset.gmobject} [_dust]= Dust Object
