@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"sPlayer1Idle_weapon",
   "bboxMode":2,
-  "bbox_bottom":49,
+  "bbox_bottom":43,
   "bbox_left":15,
   "bbox_right":29,
   "bbox_top":2,

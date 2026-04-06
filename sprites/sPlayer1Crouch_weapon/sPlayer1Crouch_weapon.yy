@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"sPlayer1Crouch_weapon",
   "bboxMode":2,
-  "bbox_bottom":32,
+  "bbox_bottom":26,
   "bbox_left":12,
   "bbox_right":25,
   "bbox_top":14,

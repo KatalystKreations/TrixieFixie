@@ -81,6 +81,7 @@
   },
   "name":"Trixie Fixie",
   "resources":[
+    {"id":{"name":"anim_DoorOpen","path":"animcurves/anim_DoorOpen/anim_DoorOpen.yy",},},
     {"id":{"name":"Initial_Configerations","path":"notes/Initial_Configerations/Initial_Configerations.yy",},},
     {"id":{"name":"To-do","path":"notes/To-do/To-do.yy",},},
     {"id":{"name":"o_parallax_Forrestbg","path":"objects/o_parallax_Forrestbg/o_parallax_Forrestbg.yy",},},
