@@ -170,16 +170,16 @@ if (hit_flashTimer)
 		}
 		//sliding
 		if (is_sliding){
-			mask_index = spr_crouch; 
+			mask_index = spr_slide; 
 			sprite_index = spr_slide
 			with (instance_create_layer(x, bbox_bottom, "FX", oDustWallSlide)){}
 		}
 		if (crouching){
-			mask_index = spr_crouch; 
+			mask_index = spr_slide; 
 			sprite_index = spr_crouch
 		}
 		if (crawling){
-			mask_index = spr_crouch; 
+			mask_index = spr_slide; 
 			sprite_index = spr_crawl
 		}
 		if (grabbing_ledge){
