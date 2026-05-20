@@ -14,6 +14,7 @@ function spawn_fade(_room_to_goto = undefined, _fadeinSpd = 0.025, _fadeoutSpd =
 	_inst.room_to_goto = _room_to_goto;
 	_inst.fadeinSpd = _fadeinSpd;
 	_inst.fadeoutSpd = _fadeoutSpd;
+	if white
 	_inst.image_index = 1;
 	return _inst;
 }

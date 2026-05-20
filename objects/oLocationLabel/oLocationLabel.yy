@@ -30,6 +30,10 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"locationText","filters":[],"listItems":[],"multiselect":false,"name":"locationText","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"267 Ville Lane\"","varType":2,},
+    {"$GMObjectProperty":"v2","%Name":"padx","filters":[],"listItems":[],"multiselect":false,"name":"padx","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"20","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"pady","filters":[],"listItems":[],"multiselect":false,"name":"pady","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-25","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"col","filters":[],"listItems":[],"multiselect":false,"name":"col","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"$FFFFFF00","varType":7,},
+    {"$GMObjectProperty":"v2","%Name":"flip_speed","filters":[],"listItems":[],"multiselect":false,"name":"flip_speed","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0.05","varDescription":"How fast each letter progresses","varFriendlyName":"Flip Speed","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

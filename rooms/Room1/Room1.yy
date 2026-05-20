@@ -91,6 +91,7 @@
     {"name":"inst_17796256","path":"rooms/Room1/Room1.yy",},
     {"name":"inst_40B3878A","path":"rooms/Room1/Room1.yy",},
     {"name":"inst_5A98721E","path":"rooms/Room1/Room1.yy",},
+    {"name":"inst_2B7E089F","path":"rooms/Room1/Room1.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -100,6 +101,10 @@
         {"$GMRInstance":"v4","%Name":"inst_2CF49299","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2CF49299","objectId":{"name":"oMusicControl","path":"objects/oMusicControl/oMusicControl.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oMusicControl","path":"objects/oMusicControl/oMusicControl.yy",},"propertyId":{"name":"room_music","path":"objects/oMusicControl/oMusicControl.yy",},"resource":{"name":"Level_Run","path":"sounds/Level_Run/Level_Run.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Level_Run",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":32.0,"y":-32.0,},
+        {"$GMRInstance":"v4","%Name":"inst_2B7E089F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2B7E089F","objectId":{"name":"oLocationLabel","path":"objects/oLocationLabel/oLocationLabel.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oLocationLabel","path":"objects/oLocationLabel/oLocationLabel.yy",},"propertyId":{"name":"locationText","path":"objects/oLocationLabel/oLocationLabel.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"Training Room 1\"",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oLocationLabel","path":"objects/oLocationLabel/oLocationLabel.yy",},"propertyId":{"name":"col","path":"objects/oLocationLabel/oLocationLabel.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"$FFB2828E",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":96.0,"y":320.0,},
       ],"layers":[],"name":"Misc","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"FX","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_1EDB4AB7","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":true,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1EDB4AB7","objectId":{"name":"oStormWall","path":"objects/oStormWall/oStormWall.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":10.378788,"scaleY":16.0,"x":-388.5,"y":512.0,},
