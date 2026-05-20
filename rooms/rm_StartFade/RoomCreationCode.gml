@@ -1,1 +1,1 @@
-spawn_fade(room_next(room), .025, .15)
+spawn_fade(room_next(room), .025, .015)

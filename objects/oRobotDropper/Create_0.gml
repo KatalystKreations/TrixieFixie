@@ -13,7 +13,11 @@ event_inherited();
 	face 		= 1;
 	moveSpd 	= 5;
 
-
+//Sprites
+	spr_idle = sRobot_Dropper_WalkEmpty
+	spr_walk = sRobot_Dropper_WalkEmpty
+	spr_walkFull = sRobot_Dropper_WalkLoaded
+	spr_death = sRobot_Dropper_Death
 
 
 

@@ -2,7 +2,7 @@
 var _cur_val = animcurve_channel_evaluate(curve_channel, curve_head)
 
 //Open and Add to value
-if open{
+if isOpen{
 	curve_head = min(curve_head+curve_speed, 1); 
 	image_index = 1;
 }
@@ -17,4 +17,4 @@ else{
 }
 
 // Move by 3 Blocks
-y = ystart - (_cur_val*(aBLOCK*3));
+y = ystart - (_cur_val*(aBLOCK*3)) * image_yscale;

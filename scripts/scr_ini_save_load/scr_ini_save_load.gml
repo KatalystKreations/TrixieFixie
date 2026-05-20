@@ -1,4 +1,8 @@
 
+saveFileNum = 1;
+saveFileName= string("save{0}.ini", saveFileNum)
+
+
 /**
  * Opens or closes the save INI file.
  *
@@ -15,7 +19,7 @@
  */
 function save_open(_bool=true) {
     if (_bool)
-        ini_open("save.ini");
+        ini_open(global.saveFileName);
     else
         ini_close();
 }
@@ -35,13 +39,15 @@ function save_open(_bool=true) {
  * @param {string} _key      The key inside the section to write. (e.g  "x", "volume")
  * @param {any}    _val      The value to save (number or string).
  */
-function save_section(_section, _key, _val) {
+function save_section(_section, _key, _val, _self_only = false) {
+if _self_only save_open(true);
     if (is_bool(_val))
         ini_write_real(_section, _key, _val);
     else if (is_numeric(_val))
         ini_write_real(_section, _key, _val);
     else
         ini_write_string(_section, _key, _val);
+if _self_only save_open(false);
 }
 
 /**
@@ -58,9 +64,16 @@ function save_section(_section, _key, _val) {
  *
  * @param {string} _key   The key inside the "progress" section to write.
  * @param {any}    _val   The value to save (number or string).
+ * @param {bool} _self_only Whether to open and close own ini file (no batching / ineffeienct for large amounts).
  */
-function save_progress(_key, _val) {
+function save_progress(_key, _val, _self_only = false) {
+	if (_self_only) {
+		save_open();
+		save_section("progress", _key, _val);
+		save_open(false)
+	}else
     save_section("progress", _key, _val);
+	
 }
 
 
@@ -69,9 +82,15 @@ function save_progress(_key, _val) {
  * @param {any} _player_num The player number. (e.g  1)
  * @param {string} _key The File. (e.g  "x")
  * @param {any} _val The Value. (e.g  128)
+ * @param {bool} _self_only Whether to open and close own ini file (no batching / ineffeienct for large amounts).
  */
-function save_player(_player_num, _key, _val) {
+function save_player(_player_num, _key, _val, _self_only = false) {
     var section = "player" + string(_player_num);
+	if (_self_only) {
+		save_open();
+		save_section(section, _key, _val);
+		save_open(false)
+	}else
     save_section(section, _key, _val);
 }
 
@@ -91,10 +110,14 @@ function save_player(_player_num, _key, _val) {
  *
  * @returns {real|string}    The loaded value, converted to the correct type.
  */
-function load_section(_section, _key, _default) {
-    var val = ini_read_string(_section, _key, "__NULL__");
-	val = string_trim(val);
-	
+function load_section(_section, _key, _default, _self_only = false) {
+	if _self_only save_open(true);
+		if !ini_section_exists(_section) 
+			|| !ini_key_exists(_section, _key) return _default;
+		
+	    var val = ini_read_string(_section, _key, "__NULL__");
+		val = string_trim(val);
+	if _self_only save_open(false);
     // Key doesn't exist → return default
     if (val == "__NULL__") return _default;
 	
@@ -122,11 +145,40 @@ function load_section(_section, _key, _default) {
  *
  * @param {string} _key      The key inside the "progress" section to load.
  * @param {any}    _default  The value to return if the key does not exist.
+ * @param {bool} _self_only Whether to open and close own ini file (no batching / ineffeienct for large amounts).
+ * 
+ * @returns {real|string}    The loaded value, converted to the correct type.
+ */
+function load_progress(_key, _default, _self_only = false) {
+    var val;
+	val = load_section("progress", _key, _default, _self_only);
+	return val;
+}
+
+
+/**
+ * Loads a value from the "player{i}" section of the INI file.
+ *
+ * This is a shorthand for load_section(), used for reading
+ * player data such as coords, speed, etc.
+ *
+ * Automatically returns:
+ * - the default value if the key does not exist
+ * - a real number if the stored value is numeric
+ * - a string otherwise
+ *
+ * @param {string} player_index  The player who's info it is. (0, 1, 2, etc...)
+ * @param {string} _key      The key inside the "progress" section to load.
+ * @param {any}    _default  The value to return if the key does not exist.
+ * @param {bool} _self_only Whether to open and close own ini file (true => No batching => Ineffeienct for large amounts).
  *
  * @returns {real|string}    The loaded value, converted to the correct type.
  */
-function load_progress(_key, _default) {
-    return load_section("progress", _key, _default);
+function load_player(_player_num, _key, _default, _self_only = false) {
+    var section = "player" + string(_player_num);
+	var val;
+	val = load_section("section", _key, _default, _self_only)
+	return val;
 }
 
 

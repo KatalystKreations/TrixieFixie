@@ -4,7 +4,7 @@
 /// @param {any*} _room_to_goto Room to goto to. (optional)
 /// @param {Real} _fadeinSpd 0.025 Speed to fade in. (optional)
 /// @param {Real} _fadeoutSpd 0.05 Speed to fade out. (optional)
-function spawn_fade(_room_to_goto = undefined, _fadeinSpd = 0.025, _fadeoutSpd = 0.05){
+function spawn_fade(_room_to_goto = undefined, _fadeinSpd = 0.025, _fadeoutSpd = 0.05, white=false){
 	if instance_exists(oFade) exit;
 	if (instance_exists(oPlayer)){
 	oGame.hp = oPlayer.hp
@@ -14,6 +14,7 @@ function spawn_fade(_room_to_goto = undefined, _fadeinSpd = 0.025, _fadeoutSpd =
 	_inst.room_to_goto = _room_to_goto;
 	_inst.fadeinSpd = _fadeinSpd;
 	_inst.fadeoutSpd = _fadeoutSpd;
+	_inst.image_index = 1;
 	return _inst;
 }
 

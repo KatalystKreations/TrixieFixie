@@ -1,1 +1,1 @@
-open = !open;
+isOpen = !isOpen;

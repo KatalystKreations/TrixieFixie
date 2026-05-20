@@ -34,16 +34,16 @@ THE GREAT TO-DO LIST
 - player died state
 -
 
-- - Animations -> Last in priority
-- player get hit animation
+-  Animations -> Last in priority 
+- - player get hit animation
 
-- player get KO'd animation
+- - player get KO'd animation
 
-- attack animation (building attack)
+- - attack animation (building attack)
 
-- attack animation (wrench attack)
+- - attack animation (wrench attack)
 
-- hit animation
+- - hit animation
  
 
 Completed

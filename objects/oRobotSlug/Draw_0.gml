@@ -1,0 +1,2 @@
+
+draw_hitFlash(false)

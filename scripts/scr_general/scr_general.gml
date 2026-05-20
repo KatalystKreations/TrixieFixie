@@ -11,19 +11,6 @@ function is_even(num) {
 }
 
 
-/// @desc Cut the speed of an object.
-/// @param {any*} _x Cut X?
-/// @param {any*} _y Cut y?
-function cutSpd(_x = true, _y = true){
-	if (_x) {
-		xspd = 0;
-	}
-	if (_y) {
-		yspd = 0;
-	}
-}
-
-
 
 function room_is(_room){
 	if (room == _room) return true;
