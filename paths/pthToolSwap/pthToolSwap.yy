@@ -1,0 +1,19 @@
+{
+  "$GMPath":"",
+  "%Name":"pthToolSwap",
+  "closed":false,
+  "kind":1,
+  "name":"pthToolSwap",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":528.0,"y":312.0,},
+    {"speed":100.0,"x":529.0559,"y":297.78546,},
+    {"speed":100.0,"x":543.0,"y":297.0,},
+  ],
+  "precision":2,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

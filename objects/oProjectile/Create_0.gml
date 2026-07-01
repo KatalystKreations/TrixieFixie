@@ -6,7 +6,7 @@ damage *= image_xscale
 knockback *= abs(image_xscale)
 
 active = true;
-collision = [oWall]
+collision = [oWall, layer_tilemap_get_id("MainTiles")]
 
 
 hit_list = ds_list_create();

@@ -25,6 +25,7 @@ function getControls( _rightkey = ord("D"), _leftKey = ord("A"), _downkey = ord(
 	downKeyPressed 	= keyboard_check_pressed( _downkey );
 	upKeyPressed 	= keyboard_check_pressed( _upKey );
 	
+	runKeyPressed 		= keyboard_check_pressed( _runKey );
 	jumpKeyPressed 		= keyboard_check_pressed( _upKey );
 	enterKeyPressed		= keyboard_check_pressed( vk_enter );
 	startKeyPressed		= keyboard_check_pressed( vk_escape );

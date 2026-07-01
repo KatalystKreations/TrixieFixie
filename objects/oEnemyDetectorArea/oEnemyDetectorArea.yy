@@ -9,8 +9,8 @@
   "name":"oEnemyDetectorArea",
   "overriddenProperties":[],
   "parent":{
-    "name":"Enemies",
-    "path":"folders/Objects/Enemies.yy",
+    "name":"Doors",
+    "path":"folders/Objects/Objects/Doors.yy",
   },
   "parentObjectId":null,
   "persistent":false,

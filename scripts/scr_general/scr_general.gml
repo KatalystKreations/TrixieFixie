@@ -41,6 +41,9 @@ function restart(){
 	    y = global.spawn_y;
 		hp = hp_max
     }}
+	with (oToolSwitch) {
+		
+	}
 	set_gamestate(GAMESTATE.PLAYING)
     
 }

@@ -1,12 +1,15 @@
 
 
 // Activate AI
-if (distance_to_object(oPlayer_par) < aBLOCK*10){
+if (distance_to_object(oPlayer_par) < aBLOCK*10 ){
 	enable()
 }
 // Deactivate AI
 if (distance_to_object(oPlayer_par) > aBLOCK*25){
 	disable()
+}
+if (!instance_exists(oPlayer_par)){
+	enable()
 }
 if disabled exit;
 

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_sprites1",
+  "%Name":"scr_particle",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_sprites1",
+  "name":"scr_particle",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",
