@@ -12,36 +12,40 @@ function getControls( _rightkey = ord("D"), _leftKey = ord("A"), _downkey = ord(
 	run	  = _runKey;
 	
 	//Hold Down Keys
-	rightKey 	= keyboard_check( _rightkey );
-	leftKey 	= keyboard_check( _leftKey );
-	downKey 	= keyboard_check( _downkey );
-	upKey 		= keyboard_check( _upKey );
+	rightKey 	:= keyboard_check( right );
+	leftKey 	:= keyboard_check( left );
+	downKey 	:= keyboard_check( down );
+	upKey 		:= keyboard_check( up );
 	
-	runKey 		= keyboard_check( _runKey );
-	spaceKey 	= keyboard_check( vk_space );
+	runKey 		:= keyboard_check( run );
+	spaceKey 	:= keyboard_check( vk_space );
+	
 	//Single Press Keys
-	rightKeyPressed = keyboard_check_pressed( _rightkey );
-	leftKeyPressed 	= keyboard_check_pressed( _leftKey );
-	downKeyPressed 	= keyboard_check_pressed( _downkey );
-	upKeyPressed 	= keyboard_check_pressed( _upKey );
+	rightKeyPressed := keyboard_check_pressed( right );
+	leftKeyPressed 	:= keyboard_check_pressed( left );
+	downKeyPressed 	:= keyboard_check_pressed( down );
+	upKeyPressed 	:= keyboard_check_pressed( up );
 	
-	runKeyPressed 		= keyboard_check_pressed( _runKey );
-	jumpKeyPressed 		= keyboard_check_pressed( _upKey );
-	enterKeyPressed		= keyboard_check_pressed( vk_enter );
-	startKeyPressed		= keyboard_check_pressed( vk_escape );
+	runKeyPressed 		:= keyboard_check_pressed( run );
+	jumpKeyPressed 		:= keyboard_check_pressed( up );
+	enterKeyPressed		:= keyboard_check_pressed( vk_enter );
+	startKeyPressed		:= keyboard_check_pressed( vk_escape );
+	spaceKeyPressed 	:= keyboard_check_pressed( vk_space );
 	
 	//GAMEPAD CONTROLS
 	var _gp = undefined;
 	if (array_length(global.gamepads) > _player_id)
 		_gp = global.gamepads[_player_id];
-	
 	if (_gp != undefined) 
 	{
 		var _deadzone = 0.2;
 		//Horizontal Left Stick
 		var _gp_l_ax_x_val = gamepad_axis_value(_gp, gp_axislh);
-		if (_gp_l_ax_x_val > _deadzone) { rightKey += _gp_l_ax_x_val; } 
-		if (_gp_l_ax_x_val < _deadzone) { leftKey  += _gp_l_ax_x_val; }
+		if (abs(_gp_l_ax_x_val) > _deadzone) { 
+				 if (_gp_l_ax_x_val > 0) rightKey =  _gp_l_ax_x_val
+			else if (_gp_l_ax_x_val < 0) leftKey  = -_gp_l_ax_x_val
+			
+		} 
 		
 		//Vertical Left Stick
 		var _gp_l_ax_y_val = gamepad_axis_value(_gp, gp_axislv);
@@ -85,29 +89,46 @@ function getControls( _rightkey = ord("D"), _leftKey = ord("A"), _downkey = ord(
 
 }
 function getGPcontrols(_gp = 0){
-	//Controller btns
-	aBtn = gamepad_button_check(_gp, gp_face1)
-	bBtn = gamepad_button_check(_gp, gp_face2)
-	xBtn = gamepad_button_check(_gp, gp_face3)
-	yBtn = gamepad_button_check(_gp, gp_face4)
-	//Controller btns preessed
-	aBtnPressed = gamepad_button_check_pressed(_gp, gp_face1)
-	bBtnPressed = gamepad_button_check_pressed(_gp, gp_face2)
-	xBtnPressed = gamepad_button_check_pressed(_gp, gp_face3)
-	yBtnPressed = gamepad_button_check_pressed(_gp, gp_face4)
-	//Controller shoulders value
-	rtBtn_val = gamepad_button_value(_gp, gp_shoulderrb) 
-	ltBtn_val = gamepad_button_value(_gp, gp_shoulderlb) 
-	//Controller shoulders
-	rtBtn = gamepad_button_check(_gp, gp_shoulderrb) 
-	rbBtn = gamepad_button_check(_gp, gp_shoulderr) 
-	ltBtn = gamepad_button_check(_gp, gp_shoulderlb) 
-	lbBtn = gamepad_button_check(_gp, gp_shoulderl) 
+	// Controller buttons (held)
+	aBtn = gamepad_button_check(_gp, gp_face1);
+	bBtn = gamepad_button_check(_gp, gp_face2);
+	xBtn = gamepad_button_check(_gp, gp_face3);
+	yBtn = gamepad_button_check(_gp, gp_face4);
 	
-	rtBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderrb) 
-	rbBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderr) 
-	ltBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderlb) 
-	lbBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderl) 
+	// Controller buttons (pressed)
+	aBtnPressed = gamepad_button_check_pressed(_gp, gp_face1);
+	bBtnPressed = gamepad_button_check_pressed(_gp, gp_face2);
+	xBtnPressed = gamepad_button_check_pressed(_gp, gp_face3);
+	yBtnPressed = gamepad_button_check_pressed(_gp, gp_face4);
+	
+	// Controller buttons (released)
+	aBtnReleased = gamepad_button_check_released(_gp, gp_face1);
+	bBtnReleased = gamepad_button_check_released(_gp, gp_face2);
+	xBtnReleased = gamepad_button_check_released(_gp, gp_face3);
+	yBtnReleased = gamepad_button_check_released(_gp, gp_face4);
+	
+	// Shoulder values (analog)
+	rtBtn_val = gamepad_button_value(_gp, gp_shoulderrb);
+	ltBtn_val = gamepad_button_value(_gp, gp_shoulderlb);
+	
+	// Shoulder buttons (held)
+	rtBtn = gamepad_button_check(_gp, gp_shoulderrb);
+	rbBtn = gamepad_button_check(_gp, gp_shoulderr);
+	ltBtn = gamepad_button_check(_gp, gp_shoulderlb);
+	lbBtn = gamepad_button_check(_gp, gp_shoulderl);
+	
+	// Shoulder buttons (pressed)
+	rtBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderrb);
+	rbBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderr);
+	ltBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderlb);
+	lbBtn_pressed = gamepad_button_check_pressed(_gp, gp_shoulderl);
+	
+	// Shoulder buttons (released)
+	rtBtn_released = gamepad_button_check_released(_gp, gp_shoulderrb);
+	rbBtn_released = gamepad_button_check_released(_gp, gp_shoulderr);
+	ltBtn_released = gamepad_button_check_released(_gp, gp_shoulderlb);
+	lbBtn_released = gamepad_button_check_released(_gp, gp_shoulderl);
+	
 	//Controller Axis
 	static _aim_angle_rs 	= 0;
 	static _aim_angle_ls 	= 0;

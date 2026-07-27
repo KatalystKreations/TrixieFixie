@@ -1,2 +1,2 @@
-oPlayer.hp -= 15;
+oPlayer.hp -= 35;
 instance_destroy()

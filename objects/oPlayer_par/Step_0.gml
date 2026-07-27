@@ -1,5 +1,19 @@
-//Detect Ground
-onGround 	= place_meeting( x, y + 1, collision );
+
+// Inputs
+	getControls()
+	getGPcontrols(_player_id)
+	getPowerControls()
+	runKey += xBtn;
+	clamp(runKey, 0, 1)
+// Ground
+	onGround = place_meeting( x, y+1, collision);
+	ground = instance_place(x, y+1, collision[0])
+// Direction
+	moveDir = rightKey - leftKey;
+	xmoving = xspd != 0
+	if ((moveDir != 0) && (wall_jump_delay == 0)) 
+	{face = sign(moveDir)}
+
 //Switch sprint speed
 runType 	= runKey;
 if (gamestate_is(GAMESTATE.PLAYING)) {
@@ -92,8 +106,8 @@ if (gamestate_is(GAMESTATE.PLAYING)) {
 
 	#region Jumping
 	//Detect jump input for buffer frames
-		if (jumpKeyPressed) { jumpBufferTimer = jumpBufferTime; }
-		if (!upKey) 		{ jumpTimer 	  = 0; }
+	if (jumpKeyPressed || aBtnPressed)  { jumpBufferTimer = jumpBufferTime; }
+	if (!upKey && !aBtn) { jumpTimer = 0; }
 		jumpBufferTimer = max(jumpBufferTimer-1, 0);
 	if (onGround) 
 	{

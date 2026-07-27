@@ -28,7 +28,7 @@ function getCollisionVars(_col_arr = [oWall, layer_tilemap_get_id("Tiles_Ground"
 /// @param {bool} [_ground]=true Check for ground?
 /// @param {bool} [_x]=true Check for x Collision?
 /// @param {bool} [_y]=true Check for y Collision?
-function getCollisions(_ground = true, _x = true, _y = true){
+function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){}, yFunc = function(){} ){
 
 	if (_ground) {
 		onGround 	= place_meeting( x, y + 1, collision );
@@ -61,7 +61,10 @@ function getCollisions(_ground = true, _x = true, _y = true){
 					while !place_meeting(x + _pixelCheck, y, collision) { x += _pixelCheck; }
 					
 					//"Collide"
-					xspd = 0;
+					if (xspd != 0) {
+						xspd = 0;
+						xFunc();
+					}
 				}
 			}
 		}
@@ -86,7 +89,10 @@ function getCollisions(_ground = true, _x = true, _y = true){
 			//Bonk code
 				if yspd < 0 {jumpTimer = 0;}
 			//Set speed to 0 to collide
-			yspd = 0;
+			if (yspd != 0) {
+					yspd = 0;
+					yFunc();
+				}
 			if variable_instance_exists(ground, "yspd"){
 				 	yspd = ground.yspd
 				if place_meeting(x,y+abs(yspd), collision) yspd = 0}

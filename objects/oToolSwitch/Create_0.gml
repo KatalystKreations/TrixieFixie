@@ -18,3 +18,7 @@ with (instance_create_depth(x+sprite_width/2, y-sprite_height/2, depth+1, object
 }
 
 
+x_offset = x;
+y_offset = y;
+pthx_offset = path_get_x(pthToolSwap, 0)
+pthy_offset = path_get_y(pthToolSwap, 0)

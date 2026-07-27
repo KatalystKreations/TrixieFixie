@@ -1,1 +1,1 @@
-image_blend = c_red;
+image_blend = #CCA3A4;

@@ -16,8 +16,6 @@
     {"$GMFolder":"","%Name":"io.gamemaker.incidentalsfood -1.0.0","folderPath":"folders/io.gamemaker.incidentalsfood -1.0.0.yy","name":"io.gamemaker.incidentalsfood -1.0.0","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Notes","folderPath":"folders/Notes.yy","name":"Notes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Collisions","folderPath":"folders/Objects/Collisions.yy","name":"Collisions","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Attack","folderPath":"folders/Objects/Collisions/Attack.yy","name":"Attack","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Dialogue","folderPath":"folders/Objects/Dialogue.yy","name":"Dialogue","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Enemies","folderPath":"folders/Objects/Enemies.yy","name":"Enemies","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Items","folderPath":"folders/Objects/Items.yy","name":"Items","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -25,6 +23,8 @@
     {"$GMFolder":"","%Name":"Initialize","folderPath":"folders/Objects/Misc./Initialize.yy","name":"Initialize","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Camera","folderPath":"folders/Objects/Misc./Initialize/Camera.yy","name":"Camera","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Collisions","folderPath":"folders/Objects/Objects/Collisions.yy","name":"Collisions","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Attack","folderPath":"folders/Objects/Objects/Collisions/Attack.yy","name":"Attack","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Doors","folderPath":"folders/Objects/Objects/Doors.yy","name":"Doors","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"oNPCs","folderPath":"folders/Objects/oNPCs.yy","name":"oNPCs","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Players","folderPath":"folders/Objects/Players.yy","name":"Players","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -70,6 +70,8 @@
   "ForcedPrefabProjectReferences":[
     {"link":"io.gamemaker.gm_filter_tintfilter-1.0.0","name":"io.gamemaker.gm_filter_tintfilter-1.0.0","path":"io.gamemaker.gm_filter_tintfilter-1.0.0.yyp",},
     {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
+    {"link":"io.gamemaker.gm_filter_parallax-1.0.0","name":"io.gamemaker.gm_filter_parallax-1.0.0","path":"io.gamemaker.gm_filter_parallax-1.0.0.yyp",},
+    {"link":"io.gamemaker.gm_filter_vignette-1.0.0","name":"io.gamemaker.gm_filter_vignette-1.0.0","path":"io.gamemaker.gm_filter_vignette-1.0.0.yyp",},
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"metadata.json","CopyToMask":-1,"filePath":"datafiles","name":"metadata.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -78,7 +80,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"Trixie Fixie",
   "resources":[
@@ -94,6 +96,7 @@
     {"id":{"name":"oCheckPoint","path":"objects/oCheckPoint/oCheckPoint.yy",},},
     {"id":{"name":"oCookie_bad","path":"objects/oCookie_bad/oCookie_bad.yy",},},
     {"id":{"name":"oCookie","path":"objects/oCookie/oCookie.yy",},},
+    {"id":{"name":"oDashFX","path":"objects/oDashFX/oDashFX.yy",},},
     {"id":{"name":"oDialogue","path":"objects/oDialogue/oDialogue.yy",},},
     {"id":{"name":"oDustJump","path":"objects/oDustJump/oDustJump.yy",},},
     {"id":{"name":"oDustLand","path":"objects/oDustLand/oDustLand.yy",},},

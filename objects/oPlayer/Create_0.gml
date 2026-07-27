@@ -2,8 +2,8 @@
 
 //Moving
 	moveDir = 0;
-	moveSpd[0] = 5;
-	moveSpd[1] = 6;
+	moveSpd[0] = 3.25;
+	moveSpd[1] = 4.25;
 	moveSpd[2] = 2.5;	//crawlspd
 	moveSpd[3] = 7.5;	//slideboost spd
 	xspd = 0;
@@ -32,6 +32,11 @@
 		crouching = false;
 		crawling = false;
 		head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), oWall); 
+	// Dash
+		dashTime = 10;
+		dashTimer = 0;
+		dashCooldownMax = 15;
+		dashCooldown = 0;
 
 //Jumping
 	regGrav = .35;
@@ -105,6 +110,7 @@ collision = [oWall, col_tiles];
 	spr_slide = sPlayer1Crouch_weapon
 	spr_wallslide = sPlayer1WallSlide_weapon
 	spr_ledgegrab = sPlayer1LedgeGrab
+	spr_dash = sPlayer1Crawl_weapon
 
 	current_sprite = sprite_index;
 
@@ -137,18 +143,27 @@ stateFree = function()
 	
 #region //X Movement 
 	//timers
-	
+		dashCooldown = max(0, dashCooldown-1)
 		slideBoostTimer = max(slideBoostTimer-1, 0)
 		slideTimer = max(slideTimer-1, 0);
 		wall_jump_delay = max(wall_jump_delay-1, 0)
 	if (slideBoostTimer && !slideBoosted) {slideBoosted = true; xspd *= 1.4}
 		
+	// Slide
 	if (downKeyPressed && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
 		{
 			slideTimer = slideTime
 			state = stateSlide;
 		}
-	
+	// Dash
+	if (keyboard_check_pressed(vk_space)) {
+		if (dashCooldown <= 0) {
+			dashCooldown = dashCooldownMax;
+			dashTimer = dashTime;
+			state = stateDash;
+		}
+	}
+	// Run
 	if (wall_jump_delay == 0 && !is_sliding && !slideBoostTimer && !oGame.alarm[0])
 	{
 		//Get X speed
@@ -156,7 +171,7 @@ stateFree = function()
 				runType = runKey;
 		
 
-		//slide boosting
+		// Slide boosting
 		if (slideBoostTimer > 0)
 		{
 		slideBoostTimer--
@@ -164,7 +179,7 @@ stateFree = function()
 		}
 		
 		
-		//crouching
+		// Crouch
 		if (downKey && grounded && abs(xspd) < moveSpd[0]-2 ){
 			xspd = 0; 
 			yspd = 0;
@@ -179,7 +194,8 @@ stateFree = function()
 				if (!moveDir && abs(xspd) < deceleration) {xspd = 0}
 			//Run Cap
 				//if (abs(xspd) > moveSpd[runType]) {xspd -= sign(xspd)*.95}
-				xspd = clamp(xspd, -moveSpd[runType], moveSpd[runType])
+				var targetSpd = clamp(xspd, -moveSpd[runType], moveSpd[runType]);
+				xspd = lerp(xspd, targetSpd, 0.2); // 0.1 is the easing factor
 	}
 	
 
@@ -188,68 +204,85 @@ stateFree = function()
 
 #region //Y Movement
 	
-#region //Jumping
-		//landing dust and sound
-			if (!grounded) 
-			{
-				dustLand = false;
-				slideTimer = 0
-				
-			}
-			if (grounded && !dustLand)
-			{
-				
-				dustLand = true;
-				var landDust = instance_create_layer(x, y, "FX", oDustLand);
-				//jump land snd
-					audio_play_sound(snd_jump_land, 1, false, 1, 0, random_range(0.9, 1.8))
-			}
-		//reset jump when on ground
-			if (grounded)
-			{
-				coyoteTimer = coyoteTime
-				jumped = false;
-			}	
-			else coyoteTimer--
-		
-		//allow jump with lenience (jumpkey and onground)
-			if (jumpBufferTimer && coyoteTimer && !oGame.alarm[0])
-			{
-				jumpTimer = jumpTime;
-				
-				if (slideBoostTimer) {yspd = jspd-(slideBoost/2)}
-				coyoteTimer = 0
-				jumpBufferTimer = 0
-				
-				if (!jumped)
+	#region //Jumping
+			//landing dust and sound
+				if (!grounded) 
 				{
-					jumped = true;
-					//dust fx
-						dustLand = false;
-						var jDust = instance_create_layer(x, y, "FX", oDustJump);
-						jDust.image_xscale = 1.5;
-						jDust.image_yscale = 1.5;
-					//jump snd
-					audio_play_sound(snd_jump_up, 1, false, 1, 0, random_range(0.9, 1.8))
+					dustLand = false;
+					slideTimer = 0
+					
 				}
-			}
-			if (jumpTimer) {
-					yspd = jspd;
-					jumpTimer--
+				if (grounded && !dustLand)
+				{
+					
+					dustLand = true;
+					var landDust = instance_create_layer(x, y, "FX", oDustLand);
+					//jump land snd
+						audio_play_sound(snd_jump_land, 1, false, 1, 0, random_range(0.9, 1.8))
 				}
-#endregion
+			//reset jump when on ground
+				if (grounded)
+				{
+					coyoteTimer = coyoteTime
+					jumped = false;
+				}	
+				else coyoteTimer--
+			
+			//allow jump with lenience (jumpkey and onground)
+				if (jumpBufferTimer && coyoteTimer && !oGame.alarm[0])
+				{
+					jumpTimer = jumpTime;
+					
+					if (slideBoostTimer) {yspd = jspd-(slideBoost/2)}
+					coyoteTimer = 0
+					jumpBufferTimer = 0
+					
+					if (!jumped)
+					{
+						jumped = true;
+						//dust fx
+							dustLand = false;
+							var jDust = instance_create_layer(x, y, "FX", oDustJump);
+							jDust.image_xscale = 1.5;
+							jDust.image_yscale = 1.5;
+						//jump snd
+						audio_play_sound(snd_jump_up, 1, false, 1, 0, random_range(0.9, 1.8))
+					}
+				}
+				if (jumpTimer) {
+						yspd = jspd;
+						jumpTimer--
+					}
+	#endregion
+			
 		
-	
-	
-	// Wall detection
-		 on_wall_left  = place_meeting(x - 1, y, collision);
-		 on_wall_right = place_meeting(x + 1, y, collision);
-		 on_wall = on_wall_left || on_wall_right;
-		// Wall slide state
-			if (on_wall && !grounded) { 
-				state = stateOnWall 
-			}
+		
+		// Wall detection
+			 on_wall_left  = place_meeting(x - 1, y, collision);
+			 on_wall_right = place_meeting(x + 1, y, collision);
+			 on_wall = on_wall_left || on_wall_right;
+			// Wall slide state
+				if (on_wall && !grounded) { 
+					state = stateOnWall 
+				}
 #endregion
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+	
 return "Free";
 	
 }
@@ -276,6 +309,22 @@ stateSlide = function()
 		is_sliding = false;
 		state = stateFree 	//back to free state
 	}
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 
 #endregion
 return "Slide";
@@ -291,6 +340,21 @@ stateCrouch = function()
 		crouching = false;
 		state = stateFree;	//back to free state
 	}
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 return "Crouch";
 }
 
@@ -308,6 +372,22 @@ stateCrawl = function()
 	if (abs(xspd) > 0 && moveDir == 0) {xspd -= (sign(xspd)*deceleration)}	//Deceleration
 	if (!moveDir && abs(xspd) < deceleration) {xspd = 0} 					//Come to a complete stop when super slow
 	xspd = clamp(xspd, -moveSpd[runType], moveSpd[runType]) 					//Run Cap
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 	
 	return "Crawl";
 }
@@ -366,11 +446,59 @@ stateOnWall = function()
 				audio_play_sound(snd_jump_up, 1, false, 1, 0, random_range(1.5, 2.2))
 			state = stateFree; 	//back to free state
 		}
-#endregion
+	#endregion
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 return "WallSlide";
 }
 
-
+// State Dash
+stateDash = function()
+{
+	
+	
+	if (dashTimer) {
+		dashTimer--
+		xspd = face * moveSpd[3]
+		yspd = 0;
+		var _fx = create_dust(oDashFX);
+		_fx.sprite_index = sprite_index;
+		_fx.image_xscale = face;
+		_fx.depth = depth - 1;
+	}else {
+		dashCooldown = dashCooldownMax;
+		state = stateFree;
+	}
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0;
+					dashTimer = 0;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+		#endregion
+	#endregion
+}
 
 
 state = stateFree;

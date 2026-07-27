@@ -7,7 +7,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Collisions",
-    "path":"folders/Objects/Collisions.yy",
+    "path":"folders/Objects/Objects/Collisions.yy",
   },
   "parentObjectId":{
     "name":"oWall",

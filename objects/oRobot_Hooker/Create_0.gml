@@ -34,6 +34,7 @@ stateFree = function() {
 	sprite(spr_walk);
 	
 	//Apply
+	if canMove
 	x += xspd; 
 }
 stateHooking = function() {

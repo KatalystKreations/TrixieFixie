@@ -1,4 +1,11 @@
- //inputs
+show_debug_message(string("Dash Time: {0}", dashTime)) 
+show_debug_message(string("Dash Timer: {0}", dashTimer)) 
+show_debug_message(string("Dash CooldownMax: {0}", dashCooldownMax)) 
+show_debug_message(string("Dash Cooldown: {0}", dashCooldown)) 
+show_debug_message(string("-----------------")) 
+
+
+//inputs
 	rightKey = keyboard_check( ord("D") );
 	leftKey = keyboard_check( ord("A") );
 	downKey = keyboard_check( ord("S") );
@@ -12,8 +19,10 @@
 		moveDir = rightKey - leftKey;
 		if (moveDir != 0 &&  (wall_jump_delay == 0)) {face = sign(moveDir)}
 			//wall side
-				if (face = 1) side = bbox_right
+				if (face =  1) {side = bbox_right}
 				if (face = -1) {side = bbox_left}
+		xmoving = xspd != 0
+
 	//detect jump input for buffer frames
 		if (jumpKeyPressed)  { jumpBufferTimer = jumpBufferTime; }
 		if (!upKey) { jumpTimer = 0; }
@@ -28,23 +37,10 @@ if (!instance_exists(oPlayer_2) && keyboard_check_pressed(vk_numpad5)){
 }
 
 //Gravity
-		if (yspd > 0) {grav = jumpGrav} 
-		else {grav = regGrav}
-		yspd += grav;
-		//Cap the max falling speed
-		if yspd > maxGravSpd {yspd = maxGravSpd}
-			
+	if (yspd > 0) {grav = jumpGrav} 
+	else {grav = regGrav}
+		
 
-
-var state_name = "";
-switch (state) {
-    case stateFree:  	state_name = "free";  break;
-    case stateCrouch: 	state_name = "crouch"; break;
-    case stateCrawl: 	state_name = "crawl"; break;
-    case stateSlide:	state_name = "slide"; break;
-    case stateOnWall:	state_name = "onWall"; break;
-}
-//show_debug_message(string(state_name))
 
 
 //run state code if game is not paused
@@ -53,51 +49,6 @@ if gamestate_is(GAMESTATE.PLAYING)	state();
 
 
 
-#region //X Collisions
-		var _subPixel = .5;
-		if place_meeting( x + xspd, y, collision )
-		{	
-			//slopes up
-				if (!place_meeting(x + xspd, y-1 - abs(xspd), collision) && !downKey)
-					while place_meeting(x + xspd, y, collision) {y-=_subPixel}
-			//anything else
-				else 
-				{
-					//check for tiny gaps between walls and player
-						var _pixelCheck = _subPixel * sign(xspd);
-						while ( !place_meeting( x + _pixelCheck, y, collision ) ) { x += _pixelCheck }
-					//Collide
-					xspd = 0
-					slideTimer = 0;
-					slideBoostTimer = 0
-				}
-		}
-	//Apply X Movement
-	x += xspd;
-	 xmoving = xspd != 0
-#endregion
-
-#region //Y Collisions 
-		//Edge Nudging
-			if (place_meeting( x, y+yspd, collision ) && yspd < 0)
-			{
-				if (!place_meeting( bbox_left, y+(yspd*2), collision )) {x = bbox_left}
-				if (!place_meeting( bbox_right, y+(yspd*2), collision )) {x = bbox_right}
-			}
-		_subPixel = .5;
-		if place_meeting( x, y+yspd, collision )
-		{
-			//check for tiny gaps between walls and player
-				var _pixelCheck = _subPixel * sign(yspd);
-				while ( !place_meeting( x, y + _pixelCheck, collision ) ) {y+=_pixelCheck}
-			//set speed to 0 to collide
-				yspd = 0;
-		}
-	//Apply
-	y += yspd;
-	
-
-#endregion
 
 
 #region Hit Stuff
@@ -143,7 +94,10 @@ if (hit_flashTimer)
 		image_speed = 1;
 	}
 	
-
+if (dashTimer > 0) {
+	sprite(spr_dash)
+	mask_index = spr_slide; 
+}else
 //ground sprites
 	if (grounded){ 
 		

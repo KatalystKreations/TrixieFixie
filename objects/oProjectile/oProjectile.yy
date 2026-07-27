@@ -13,7 +13,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Attack",
-    "path":"folders/Objects/Collisions/Attack.yy",
+    "path":"folders/Objects/Objects/Collisions/Attack.yy",
   },
   "parentObjectId":null,
   "persistent":false,
