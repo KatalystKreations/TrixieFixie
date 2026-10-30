@@ -1,5 +1,58 @@
 
 
+
+
+/// @desc Move instance to the closest free spot around its current position.
+/// @param collision_obj  The object to collide against.
+/// @param max_radius     How far to search (default 32 pixels).
+function clip_to_free(collision_obj, max_radius = 32)
+{
+    // If already free, nothing to do
+    if (!place_meeting(x, y, collision_obj)) return;
+
+    var best_x = x;
+    var best_y = y;
+    var best_dist = 1*power(10, 4);
+
+    // Search outward in rings
+    for (var r = 1; r <= max_radius; r++)
+    {
+        // Check 8 directions around the instance
+        var dirs = [
+            0, 45, 90, 135,
+            180, 225, 270, 315
+        ];
+
+        for (var i = 0; i < array_length(dirs); i++)
+        {
+            var dir = dirs[i];
+            var tx = x + lengthdir_x(r, dir);
+            var ty = y + lengthdir_y(r, dir);
+
+            if (!place_meeting(tx, ty, collision_obj))
+            {
+                var d = point_distance(x, y, tx, ty);
+                if (d < best_dist)
+                {
+                    best_dist = d;
+                    best_x = tx;
+                    best_y = ty;
+                }
+            }
+        }
+
+        // If we found a free spot at this radius, stop early
+        if (best_dist < 1*power(10, 4)) break;
+		
+	}
+	
+    // Move to the closest free spot
+    x = best_x;
+    y = best_y;
+}
+
+
+
 function getGravVars(_grav = .35, _maxGravSpd = 10){
 	if !variable_instance_exists(id, "xspd"){
 	xspd = 0;
@@ -8,7 +61,7 @@ function getGravVars(_grav = .35, _maxGravSpd = 10){
 	grav = _grav;
 	maxGravSpd = _maxGravSpd;
 }
-function getCollisionVars(_col_arr = [oWall, layer_tilemap_get_id("Tiles_Ground")]){
+function getCollisionVars(_col_arr = [oWall, layer_tilemap_get_id("MainTiles")]){
 	if !variable_instance_exists(id, "xspd"){
 	xspd = 0;
 	yspd = 0;
@@ -28,11 +81,17 @@ function getCollisionVars(_col_arr = [oWall, layer_tilemap_get_id("Tiles_Ground"
 /// @param {bool} [_ground]=true Check for ground?
 /// @param {bool} [_x]=true Check for x Collision?
 /// @param {bool} [_y]=true Check for y Collision?
-function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){}, yFunc = function(){} ){
+/// @param {function} [xFunc]= -1 What happens on x collision? (one time)
+/// @param {function} [yFunc]= -1 What happens on y collision? (one time)
+/// @param {function} [gFunc]= -1 What happens on ground collision? (repeats)
+function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){}, yFunc = function(){}, gFunc = function(){} ){
 
 	if (_ground) {
 		onGround 	= place_meeting( x, y + 1, collision );
 		ground		= instance_place(x, y-1, collision)
+		if (onGround) {
+			if is_callable(gFunc) gFunc();
+		}
 	}
 	
 	#region X Collisions
@@ -63,7 +122,7 @@ function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){
 					//"Collide"
 					if (xspd != 0) {
 						xspd = 0;
-						xFunc();
+						if is_callable(xFunc) xFunc();
 					}
 				}
 			}
@@ -91,7 +150,8 @@ function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){
 			//Set speed to 0 to collide
 			if (yspd != 0) {
 					yspd = 0;
-					yFunc();
+					if is_callable(yFunc) yFunc();
+						
 				}
 			if variable_instance_exists(ground, "yspd"){
 				 	yspd = ground.yspd
@@ -99,6 +159,8 @@ function getCollisions(_ground = true, _x = true, _y = true, xFunc = function(){
 		}
 	}
 	#endregion
+	
+	clip_to_free(collision)
 }
 
 
@@ -225,22 +287,22 @@ function freeze(){
 }
 
 /**
- *  Places everything back at it's spawnpoint.
- */
-function reset(){
-    with all
-	{
-    x = xstart;
-    y = ystart;
-    }
-    
-    with oPlayer_par
-	{
-    x = global.spawn_x;
-    y = global.spawn_y;
-    }
-    
-}
+ //*  Places everything back at it's spawnpoint.
+ //*/
+//function reset(){
+    //with all
+	//{
+    //x = xstart;
+    //y = ystart;
+    //}
+    //
+    //with oPlayer_par
+	//{
+    //x = global.spawn_x;
+    //y = global.spawn_y;
+    //}
+    //
+//}
 
 function decelerate(_decel = variable_instance_exists(id, "deceleration") ? deceleration : 0.3) {
 	if (abs(xspd) > 0) { xspd -= (sign(xspd) * _decel);}

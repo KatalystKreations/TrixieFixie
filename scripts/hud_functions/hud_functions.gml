@@ -52,12 +52,16 @@ function fadein(fadeInTo = 1, fadeSpd = 0.025){
 
 /**
  * Makes objects hover in place. (spd mulitplies by amplitude)
- * @param {real} [spd]=0.05 How fast it move up and down.
- * @param {real} [amplitude]=2 How much it moves up it down.
- */
-function hover(spd = 0.05, amplitude = .5){
-	static timer = 0
-	timer++
-	y = y + sin(timer * spd) * amplitude
-	
+* @desc Smooth per-instance hover motion.
+* @param spd        0.05 How fast it moves up/down.
+* @param amplitude  1 How far it moves.
+*/
+function hover(spd = 0.05, amplitude = 1)
+{
+    if (!variable_instance_exists(id, "__hover_timer"))
+        __hover_timer = irandom(10000); // random start offset so objects don't sync
+
+    __hover_timer += spd;
+
+    return sin(__hover_timer) * amplitude;
 }

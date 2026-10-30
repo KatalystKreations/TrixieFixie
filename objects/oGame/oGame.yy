@@ -15,7 +15,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Initialize",
-    "path":"folders/Objects/Misc./Initialize.yy",
+    "path":"folders/Objects/Initialize.yy",
   },
   "parentObjectId":null,
   "persistent":true,

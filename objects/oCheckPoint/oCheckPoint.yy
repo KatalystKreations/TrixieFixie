@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Others",
-    "path":"folders/Objects/Players/Others.yy",
+    "path":"folders/Objects/ENTITES/Players/Others.yy",
   },
   "parentObjectId":null,
   "persistent":false,

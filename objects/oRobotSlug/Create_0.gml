@@ -1,31 +1,86 @@
 event_inherited();
 
-spd = 1
+/// Movement
+spd  = 1;
 xspd = 0;
-face = choose(1, -1);
+yspd = 0;
+
+/// Direction
+face = choose(-1, 1);
+
+/// AI
+patrol_range = 100;
+target_x = xstart + (75 * face);
+
+/// Visuals
+current_sprite = sprite_index;
+
+/// Systems
+getGravVars(0.35, 5);
+getCollisionVars();
+
+// Other
 patrol_range = 100
 target_x = xstart + (75*face)
 current_sprite = sprite_index;
 
+// Helper Functions
+	function should_turn()
+	{
+	    return place_meeting(x + face * spd, y, oWall)
+	        || !place_meeting(x + face * 8, bbox_bottom + 1, oWall);
+	}
+	function face_target(_target)
+	{
+	    face = sign(_target.x - x);
+	
+	    if (face == 0)
+	        face = 1;
+	}
+	function patrol_bounds()
+	{
+	    if (x < xstart - patrol_range)
+	    {
+	        face = 1;
+	        return true;
+	    }
+	
+	    if (x > xstart + patrol_range)
+	    {
+	        face = -1;
+	        return true;
+	    }
+	
+	    return false;
+	}
+	
+	
+stateIdle = function()
+{
+    sprite_index = sRobotSlug;
+	
+	// Switch to Patrol every two seconds
+    if (!alarm[0])
+        alarm[0] = aSecond * 2;
 
-stateIdle = function(){
-	sprite_index = sRobotSlug
-	if (!alarm[0]) alarm[0] = aSecond*2;
-	if (alarm[0] < aSecond/2) sprite_index = sRobotSlug_moving
-		if (!alarm_get(1)) alarm_set(1, aSecond * 5) sprite_index = sRobotSlug;
-		
+	// Indicate Moving
+    if (alarm[0] < aSecond * 0.5)
+        sprite_index = sRobotSlug_moving;
+
+	// Switch back to Idle? after five seconds
+    if (!alarm[1])
+    {
+        alarm[1] = aSecond * 5;
+        sprite_index = sRobotSlug;
+    }
 	
-	//check for out of range from spawn
-		if ( x < xstart - patrol_range){
-			face = 1;
-			xspd = (spd/2) * face;
-		}
-		if ( x > xstart + patrol_range) {
-			face = -1;
-			xspd = (spd/2) * face;
-		}
-	
+	// Switch directions at bounds
+    if (patrol_bounds())
+    {
+        xspd = (spd * 0.5) * face;
+    }
 }
+
 
 statePatrol = function(){
 	//patrol for random time

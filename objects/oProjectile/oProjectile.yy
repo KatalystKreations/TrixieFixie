@@ -12,8 +12,8 @@
   "name":"oProjectile",
   "overriddenProperties":[],
   "parent":{
-    "name":"Attack",
-    "path":"folders/Objects/Objects/Collisions/Attack.yy",
+    "name":"Collisions",
+    "path":"folders/Objects/Collisions.yy",
   },
   "parentObjectId":null,
   "persistent":false,

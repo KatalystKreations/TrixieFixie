@@ -12,6 +12,7 @@ moveSpd = 1;
 patrol_range = 200;
 target_x = xstart+patrol_range;
 
+can_float = true;
 
 stateFree = function() {
 	
@@ -30,11 +31,12 @@ stateFree = function() {
 	}
 	
 	// Move
+	if canMove
 	xspd = face * moveSpd;
-	sprite(spr_walk);
+	else cutSpd()
+	sprite(xspd!=0 ? spr_walk : spr_idle);
 	
 	//Apply
-	if canMove
 	x += xspd; 
 }
 stateHooking = function() {

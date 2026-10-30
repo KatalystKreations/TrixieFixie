@@ -1,4 +1,5 @@
-
+event_inherited()
+curve_create()
 
 //Moving
 	moveDir = 0;
@@ -31,12 +32,13 @@
 	//crouching
 		crouching = false;
 		crawling = false;
-		head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle), oWall); 
+		head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle), collision); 
 
 //Jumping
-	regGrav = .35;
-	jumpGrav = .40;
-	grav = regGrav;
+	regGrav 	= 0.35;
+	jumpGrav 	= 0.45;
+	forceGrav	= 0.9;
+	grav 		= regGrav;
 	maxGravSpd = 10;
 	jspd = -5;
 	dustLand = true;
@@ -115,9 +117,9 @@
 
 
 
-//spawnpoint
-	global.spawn_x = x;
-	global.spawn_y = y;
+////spawnpoint
+	//global.spawn_x = x;
+	//global.spawn_y = y;
 
 
 
@@ -129,7 +131,7 @@
  upKey = keyboard_check( ord("I") );
  jumpKeyPressed = keyboard_check_pressed( ord("I") );
  runKey = keyboard_check(vk_rshift);
- grounded = place_meeting( x, y+1, oWall);
+ grounded = place_meeting( x, y+1, collision);
 
 
 //State Free
@@ -243,8 +245,8 @@ stateFree = function()
 	
 	
 	// Wall detection
-		 on_wall_left  = place_meeting(x - 1, y, oWall);
-		 on_wall_right = place_meeting(x + 1, y, oWall);
+		 on_wall_left  = place_meeting(x - 1, y, collision);
+		 on_wall_right = place_meeting(x + 1, y, collision);
 		 on_wall = on_wall_left || on_wall_right;
 		// Wall slide state
 			if (on_wall && !grounded) { 
@@ -320,8 +322,8 @@ stateOnWall = function()
 	side = bbox_right
 	//Wall Slide	
 		//detect which walls
-			 on_wall_left  = place_meeting(x - 1, y, oWall);
-			 on_wall_right = place_meeting(x + 1, y, oWall);
+			 on_wall_left  = place_meeting(x - 1, y, collision);
+			 on_wall_right = place_meeting(x + 1, y, collision);
 			 on_wall = on_wall_left || on_wall_right;
 		if (on_wall && !grounded && yspd > 0)
 		{

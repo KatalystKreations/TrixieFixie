@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Enemies",
-    "path":"folders/Objects/Enemies.yy",
+    "path":"folders/Objects/ENTITES/Enemies.yy",
   },
   "parentObjectId":{
     "name":"oEnemy_par",
@@ -40,6 +40,9 @@
     "name":"sRobot_Hooker_Idle",
     "path":"sprites/sRobot_Hooker_Idle/sRobot_Hooker_Idle.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sRobot_Hooker_Idle",
+    "path":"sprites/sRobot_Hooker_Idle/sRobot_Hooker_Idle.yy",
+  },
   "visible":true,
 }

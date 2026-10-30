@@ -1,32 +1,48 @@
-show_debug_message(string("Dash Time: {0}", dashTime)) 
-show_debug_message(string("Dash Timer: {0}", dashTimer)) 
-show_debug_message(string("Dash CooldownMax: {0}", dashCooldownMax)) 
-show_debug_message(string("Dash Cooldown: {0}", dashCooldown)) 
-show_debug_message(string("-----------------")) 
+//show_debug_message(string("Dash Time: {0}", dashTime)) 
+//show_debug_message(string("Dash Timer: {0}", dashTimer)) 
+//show_debug_message(string("Dash CooldownMax: {0}", dashCooldownMax)) 
+//show_debug_message(string("Dash Cooldown: {0}", dashCooldown)) 
+//show_debug_message(string("-----------------")) 
 
+// Curves
+curve_step()
 
-//inputs
-	rightKey = keyboard_check( ord("D") );
-	leftKey = keyboard_check( ord("A") );
-	downKey = keyboard_check( ord("S") );
-	downKeyPressed = keyboard_check_pressed( ord("S") );
-	upKey = keyboard_check( ord("W") );
-	jumpKeyPressed = keyboard_check_pressed( ord("W") );
-	runKey = keyboard_check(vk_lshift);
+#region // Detect //
+// Inputs
+	getControls()
+	getGPcontrols(_player_id)
+	getPowerControls()
+	runKey += xBtn;
+	clamp(runKey, 0, 1)
+// Ground
 	grounded = place_meeting( x, y+1, collision);
-	head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), collision); 
-	//move direction and face (IMPORTANT)
-		moveDir = rightKey - leftKey;
-		if (moveDir != 0 &&  (wall_jump_delay == 0)) {face = sign(moveDir)}
-			//wall side
-				if (face =  1) {side = bbox_right}
-				if (face = -1) {side = bbox_left}
-		xmoving = xspd != 0
+	ground = instance_place(x, y+1, collision[0])
+// Direction
+	moveDir = rightKey - leftKey;
+	xmoving = xspd != 0
+	if ((moveDir != 0) && (wall_jump_delay == 0)) 
+	{face = sign(moveDir)}
+// Wall Side
+	if (face = 1)  {side = bbox_right}
+	if (face = -1) {side = bbox_left}
+// Jump
+	if (jumpKeyPressed || aBtnPressed)  { jumpBufferTimer = jumpBufferTime; }
+	if (!upKey && !aBtn) { jumpTimer = 0; }
+	jumpBufferTimer = max(jumpBufferTimer-1, 0) 
+//Head Clear 	
+	head_clear = !collision_line(x, y-15, x, y-sprite_get_height(spr_idle), collision, false, false); 
+// Gravity
+	if (yspd > 0) 		{ grav = jumpGrav;} 
+	//else if (downKey)	{ grav = forceGrav; if !onGround create_dust(oDustWallSlide)}
+	else  		  		{ grav = regGrav; }
+// Cutscenes
+	//if (instance_exists(oCutscene)) {
+	//state = stateCutscene;
+	//}
 
-	//detect jump input for buffer frames
-		if (jumpKeyPressed)  { jumpBufferTimer = jumpBufferTime; }
-		if (!upKey) { jumpTimer = 0; }
-		jumpBufferTimer = max(jumpBufferTimer-1, 0) 
+#endregion
+
+
 
 // Exit if Paused
 if gamestate_is(GAMESTATE.PAUSED) exit;
@@ -36,15 +52,10 @@ if (!instance_exists(oPlayer_2) && keyboard_check_pressed(vk_numpad5)){
 	instance_create_depth(x, y, depth, oPlayer_2)
 }
 
-//Gravity
-	if (yspd > 0) {grav = jumpGrav} 
-	else {grav = regGrav}
-		
-
 
 
 //run state code if game is not paused
-if gamestate_is(GAMESTATE.PLAYING)	state();
+if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) state();
 
 
 
@@ -141,7 +152,10 @@ if (dashTimer > 0) {
 		}
 	}
 //air sprites
-	else {
+	else if (pivot_point) {
+			sprite(sPlayer1Swing_weapon)
+		}
+		else{
 		
 		//if falling
 		if (yspd > 0){ 
@@ -157,12 +171,10 @@ if (dashTimer > 0) {
 					wall_dust = 0;  
 				}
 			}
-		}
-		
+		} 
 		//if rising
 		if (yspd < 0){ sprite_index = spr_jump}
-			
-		if (yspd > -1 && yspd < 1) { sprite_index = spr_jump_trans}
+		if (yspd > -2 && yspd < 2) { sprite_index = spr_jump_trans}
 	}
 	//start on first frame
 	if (current_sprite != sprite_index) {

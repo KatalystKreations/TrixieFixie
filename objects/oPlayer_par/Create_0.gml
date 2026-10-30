@@ -65,7 +65,7 @@ function create_dust(_dust = oDustLand, _x = x, _y = y) {
 
 //Initialize Inputs
 getControls()
-
+getCollisionVars()
 
 #region Sprites
 start_image_xscale = image_xscale;

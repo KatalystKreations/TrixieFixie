@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"oDust",
-    "path":"folders/Objects/Players/Others/oDust.yy",
+    "path":"folders/Objects/ENTITES/Players/Others/oDust.yy",
   },
   "parentObjectId":null,
   "persistent":false,

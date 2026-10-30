@@ -11,8 +11,8 @@
   "name":"oLocationLabel",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Initialize",
+    "path":"folders/Objects/Initialize.yy",
   },
   "parentObjectId":null,
   "persistent":false,

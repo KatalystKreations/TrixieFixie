@@ -167,13 +167,56 @@ function debug_draw_hitbox_frame(_image_index = -1, _sprite_index = sprite_index
 	)
 	// Copy Info
 	if (keyboard_check_pressed(ord("C"))) {
-    	var _text = string(
-			"var \n_x = {0}, \n_y = {1}, \n_xs = {2}, \n_ys = {3}",
+    	var _text;
+		if (keyboard_check(vk_control)){
+			_text = string(
+			"var" 
+				+"\n_x = {0}, " 
+				+"\n_y = {1}, " 
+				+"\n_xs = {2}, "
+				+"\n_ys = {3}, " 
+				+"\n_frames = 1 "
+				+"\nspawn_hitbox("
+				+"\n	_x, "
+				+"\n	_y, "
+				+"\n	damage, "
+				+"\n	_frames, "
+				+"\n	_xs, "
+				+"\n	_ys"
+				+"\n)",
 			_originX, 
 			_originY, 
 			hb_xsize, 
 			hb_ysize
-		)
+			)
+		}
+		else if (keyboard_check(vk_shift)){
+			_text = string(
+			"var" 
+				+"\n_x = {0}, " 
+				+"\n_y = {1}, " 
+				+"\n_xs = {2}, "
+				+"\n_ys = {3}, " 
+				+"\n_frames = 1 ",
+			_originX, 
+			_originY, 
+			hb_xsize, 
+			hb_ysize
+			)
+		}
+		else {
+			_text = string(
+			 "_x = {0} " 
+			+"\n_y = {1} " 
+			+"\n_xs = {2} "
+			+"\n_ys = {3} " 
+			+"\n_frames = 1 ",
+			_originX, 
+			_originY, 
+			hb_xsize, 
+			hb_ysize
+			)
+		}
 		clipboard_set_text(_text);
 		show_debug_message("Copied: \n" + _text);
 	}
@@ -184,7 +227,7 @@ function debug_draw_hitbox_frame(_image_index = -1, _sprite_index = sprite_index
 		getCamX()+5, 
 		getCamY()+5, 
 		string(
-			"Spawn Hitbox: H \nReset: R \nTranslate: ArrowKeys \nScale: Shift+ArrowKeys \nCopy: C"
+			"Spawn Hitbox: H \nReset: R \nTranslate: ArrowKeys \nScale: Shift+ArrowKeys \nCopy coords: C \nCopy New coords: Shift+C \nCopy Full: Ctrl+C"
 		)
 	)
 	//Spawn Debug Hitbox
@@ -206,6 +249,7 @@ function debug_draw_hitbox_frame(_image_index = -1, _sprite_index = sprite_index
 		hb_ysize = 1
 	}
 }
+
 
 
 function inititialize_combat_stats(_hp_max = 100){
@@ -287,7 +331,11 @@ if (hit_timer)
 }
 }
 
-function draw_hitFlash(_useFace=true){
+function draw_hitFlash(drawFunc = function(){
+	if variable_instance_exists(id, "face")
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale*face, image_yscale, image_angle, image_blend, image_alpha);
+	else draw_self();
+}){
 	//get hit 
 	var _col = c_white;
 	//if (hp <= hp_danger_zone) _col = c_red
@@ -300,9 +348,8 @@ function draw_hitFlash(_useFace=true){
 	shader_set_uniform_f(uni_add, sha_add, 0)
 	
 	// Draw self with face
-	if variable_instance_exists(id, "face") && _useFace
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale*face, image_yscale, image_angle, image_blend, image_alpha);
-	else draw_self();
+	drawFunc()
+	
 		
 	shader_reset();
 	sha_add = 1

@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Camera",
-    "path":"folders/Objects/Misc./Initialize/Camera.yy",
+    "path":"folders/Objects/Initialize/Camera.yy",
   },
   "parentObjectId":null,
   "persistent":false,

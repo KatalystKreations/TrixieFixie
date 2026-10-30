@@ -6,7 +6,7 @@
   "name":"Dialogue",
   "parent":{
     "name":"Dialogue",
-    "path":"folders/Objects/Dialogue.yy",
+    "path":"folders/Objects/ENTITES/oNPCs/Dialogue.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

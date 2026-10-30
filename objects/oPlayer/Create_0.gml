@@ -1,6 +1,7 @@
+event_inherited()
+curve_create()
 
-
-//Moving
+//Movement
 	moveDir = 0;
 	moveSpd[0] = 3.25;
 	moveSpd[1] = 4.25;
@@ -33,10 +34,14 @@
 		crawling = false;
 		head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), oWall); 
 	// Dash
-		dashTime = 10;
+		can_dash = true;
+		dashTime = 15;
 		dashTimer = 0;
 		dashCooldownMax = 15;
 		dashCooldown = 0;
+	// Swinging
+		pivot_point = noone;
+
 
 //Jumping
 	regGrav = .35;
@@ -71,6 +76,7 @@ collision = [oWall, col_tiles];
 	side = bbox_right
 	//Ledge Grabbing
 		grabbing_ledge = false;
+
 
 //health
 	hp_max = oGame.hp_max
@@ -127,14 +133,15 @@ collision = [oWall, col_tiles];
 
 
 
- rightKey = keyboard_check( ord("D") );
- leftKey = keyboard_check( ord("A") );
- downKey = keyboard_check( ord("S") );
+
+ rightKey 	= keyboard_check( ord("D") );
+ leftKey 	= keyboard_check( ord("A") );
+ downKey 	= keyboard_check( ord("S") );
  downKeyPressed = keyboard_check_pressed( ord("S") );
- upKey = keyboard_check( ord("W") );
+ upKey 		= keyboard_check( ord("W") );
  jumpKeyPressed = keyboard_check_pressed( ord("W") );
- runKey = keyboard_check(vk_lshift);
- grounded = place_meeting( x, y+1, oWall);
+ runKey 	= keyboard_check(vk_lshift);
+ grounded 	= place_meeting( x, y+1, oWall);
 
 
 //State Free
@@ -156,10 +163,11 @@ stateFree = function()
 			state = stateSlide;
 		}
 	// Dash
-	if (keyboard_check_pressed(vk_space)) {
+	if (keyboard_check_pressed(vk_space) && can_dash) {
 		if (dashCooldown <= 0) {
 			dashCooldown = dashCooldownMax;
 			dashTimer = dashTime;
+			can_dash = false;
 			state = stateDash;
 		}
 	}
@@ -214,7 +222,6 @@ stateFree = function()
 				}
 				if (grounded && !dustLand)
 				{
-					
 					dustLand = true;
 					var landDust = instance_create_layer(x, y, "FX", oDustLand);
 					//jump land snd
@@ -267,14 +274,89 @@ stateFree = function()
 				}
 #endregion
 	
+	
+#region Swinging
+	
+	var can_swing = distance_to_object(oRobot_Hooker) <= aBLOCK /2
+	
+	if (mouse_check_button(mb_right)) {
+		if (can_swing) {
+			pivot_point = instance_nearest(x, y, oRobot_Hooker);
+			state = stateSwinging
+		}
+	}
+	
+	
+#endregion
+		_h = noone;
+
+#region Combat
+	if (mouse_check_button_pressed(mb_left)) {
+		_h = noone;
+		var
+		_x = 23.60, 
+		_y = -23.80, 
+		_xs = 2.20, 
+		_ys = 2.97, 
+		_frames = 1 
+		
+		if (rightKey || leftKey) {
+			_x = 29.80
+			_y = -27.60
+			_xs = 2.60
+			_ys = 2.07
+			_frames = 5 
+		}
+		if (upKey) {
+			_x = -1.20
+			_y = -55.20
+			_xs = 2.72
+			_ys = 1.65
+			_frames = 10 
+		}
+		if (downKey) {
+			_x = -1.20 
+			_y = 32.60 
+			_xs = 2.72 
+			_ys = -3.95 
+			_frames = 4 
+		}
+		
+		
+		_h = spawn_hitbox(
+			_x,  _y, 
+			damage, 
+			_frames, 
+			_xs, _ys
+		)
+		 
+	}	
+
+	
+	
+	
+#endregion
+	
+	
+	
+	
+	
+	
+	
 	#region Movement
 		#region Add Movement to variables
 			// Handle Gravity	
 				getGrav(grav, maxGravSpd);
 			// Handle Collisions
-				getCollisions(1, 1, 1, function(){
-					slideTimer = 0;
-					slideBoostTimer = 0}
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
 				);
 		#endregion
 		#region  Apply to Position
@@ -365,7 +447,7 @@ stateCrawl = function()
 	runType = 2; xspd = clamp(xspd, -moveSpd[2], moveSpd[2])
 	//conditions for switching states
 		if (!crouching && head_clear) { crawling = false; state = stateFree }									//back to free state
-		if (crawling && !downKey && head_clear) { crawling = false; crouching = false; state = stateFree }		//back to free state
+		if (!downKey && head_clear) { crawling = false; crouching = false; state = stateFree }		//back to free state
 		if (crouching && moveDir == 0) { crawling = false;  cutSpd(); state = stateCrouch }						//back to crouch state
 
 	if (moveDir != 0) {xspd += moveDir*(acceleration*3)}	 					//Acceleration
@@ -475,10 +557,12 @@ stateDash = function()
 		dashTimer--
 		xspd = face * moveSpd[3]
 		yspd = 0;
-		var _fx = create_dust(oDashFX);
-		_fx.sprite_index = sprite_index;
-		_fx.image_xscale = face;
-		_fx.depth = depth - 1;
+		if is_even(dashTimer){
+			var _fx = create_dust(oDashFX);
+			_fx.sprite_index = sprite_index;
+			_fx.image_xscale = face;
+			_fx.depth = depth - 1;
+		}
 	}else {
 		dashCooldown = dashCooldownMax;
 		state = stateFree;
@@ -498,7 +582,34 @@ stateDash = function()
 			x += xspd;
 		#endregion
 	#endregion
+	
+	return "Dash"
 }
+
+stateSwinging = function(){
+	
+	x = pivot_point.x
+	y = pivot_point.y + (sprite_get_height(sPlayer1Swing_weapon) * 1.4)
+	pivot_point.can_float = false;
+	
+	if (!mouse_check_button(mb_right)) {
+		pivot_point.can_float = true;
+		pivot_point = noone;
+		
+		state = stateFree
+		xspd += moveSpd[1]*moveDir
+		yspd = jspd*1.5
+	}
+	
+}
+
+stateDead = function(){
+	if (gamestate_is(GAMESTATE.PLAYING)) {
+		state = stateFree;
+	}
+}
+
+
 
 
 state = stateFree;

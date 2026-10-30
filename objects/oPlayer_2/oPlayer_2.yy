@@ -16,7 +16,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Players",
-    "path":"folders/Objects/Players.yy",
+    "path":"folders/Objects/ENTITES/Players.yy",
   },
   "parentObjectId":{
     "name":"oPlayer_par",
