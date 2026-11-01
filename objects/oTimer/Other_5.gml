@@ -6,9 +6,9 @@ save_open(true)
 
 this_time = timer
 
-if (this_time < best_time) {
-	
-}
+//if (this_time < best_time) {
+	//
+//}
 save_progress(string(room_get_name(room)) + "_Time", "Timer - " + h + ":" + m + ":" + s)
 
 save_open(false)

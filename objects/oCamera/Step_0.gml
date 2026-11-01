@@ -24,6 +24,7 @@ finalCamY += (_camY - finalCamY) * camTrailSpd;
 
 //set cam coords
 camera_set_view_pos(view_camera[0],finalCamX,finalCamY)
+camera_shake_step(view_camera[0]);
 
 
 

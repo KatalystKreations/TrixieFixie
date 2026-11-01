@@ -113,7 +113,10 @@ function save_player(_player_num, _key, _val, _self_only = false) {
 function load_section(_section, _key, _default, _self_only = false) {
 	if _self_only save_open(true);
 		if !ini_section_exists(_section) 
-			|| !ini_key_exists(_section, _key) return _default;
+			|| !ini_key_exists(_section, _key) {
+            if _self_only save_open(false);
+            return _default;
+        }
 		
 	    var val = ini_read_string(_section, _key, "__NULL__");
 		val = string_trim(val);
@@ -177,7 +180,7 @@ function load_progress(_key, _default, _self_only = false) {
 function load_player(_player_num, _key, _default, _self_only = false) {
     var section = "player" + string(_player_num);
 	var val;
-	val = load_section("section", _key, _default, _self_only)
+	val = load_section(section, _key, _default, _self_only)
 	return val;
 }
 

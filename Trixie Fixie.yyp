@@ -112,6 +112,7 @@
     {"id":{"name":"oFloatingPlatform","path":"objects/oFloatingPlatform/oFloatingPlatform.yy",},},
     {"id":{"name":"oGame","path":"objects/oGame/oGame.yy",},},
     {"id":{"name":"oHitbox","path":"objects/oHitbox/oHitbox.yy",},},
+    {"id":{"name":"oInputManager","path":"objects/oInputManager/oInputManager.yy",},},
     {"id":{"name":"oLocationLabel","path":"objects/oLocationLabel/oLocationLabel.yy",},},
     {"id":{"name":"oMachineDoor","path":"objects/oMachineDoor/oMachineDoor.yy",},},
     {"id":{"name":"oMusicControl","path":"objects/oMusicControl/oMusicControl.yy",},},

@@ -9,9 +9,9 @@ curve_step()
 
 #region // Detect //
 // Inputs
-	getControls()
+	getControls(ord("D"), ord("A"), ord("S"), ord("W"), vk_lshift, _player_id)
 	getGPcontrols(_player_id)
-	getPowerControls()
+	getPowerControls(_player_id)
 	runKey += xBtn;
 	clamp(runKey, 0, 1)
 // Ground
@@ -23,8 +23,8 @@ curve_step()
 	if ((moveDir != 0) && (wall_jump_delay == 0)) 
 	{face = sign(moveDir)}
 // Wall Side
-	if (face = 1)  {side = bbox_right}
-	if (face = -1) {side = bbox_left}
+	if (face == 1)  {side = bbox_right}
+	if (face == -1) {side = bbox_left}
 // Jump
 	if (jumpKeyPressed || aBtnPressed)  { jumpBufferTimer = jumpBufferTime; }
 	if (!upKey && !aBtn) { jumpTimer = 0; }
@@ -49,7 +49,7 @@ if gamestate_is(GAMESTATE.PAUSED) exit;
 
 //two player
 if (!instance_exists(oPlayer_2) && keyboard_check_pressed(vk_numpad5)){
-	instance_create_depth(x, y, depth, oPlayer_2)
+	instance_create_depth(x, y, depth, oPlayer_2, {_player_id: 1})
 }
 
 

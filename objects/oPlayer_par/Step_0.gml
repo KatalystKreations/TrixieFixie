@@ -1,8 +1,8 @@
 
 // Inputs
-	getControls()
+	getControls(ord("D"), ord("A"), ord("S"), ord("W"), vk_lshift, _player_id)
 	getGPcontrols(_player_id)
-	getPowerControls()
+	getPowerControls(_player_id)
 	runKey += xBtn;
 	clamp(runKey, 0, 1)
 // Ground

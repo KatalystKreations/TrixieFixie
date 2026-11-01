@@ -54,38 +54,78 @@ function getCamMidY(number = 0)
 
 
 #region Camera Shake
-	global.camShake = false;
-	global.camShakeTimer = 0;
-	global.camShakeTime = 6;
-	global.camShakeMagnitude = 2;
-	global.camShakemax = 4;
-	global.camShakemin = 1;
-
-
-/// @desc Create Camera Shake
-/// @param {any*} _time Frames to stay active.
-/// @param {any*} _magnitude How big to shake.
-function camera_shake(_time = 6, _magnitude = 2){
-	global.camShakeTime = _time;
-	global.camShakeMagnitude = _magnitude;
-	global.camShake = true; 
-	global.camShakeTimer = global.camShakeTime;
+function camera_shake_create(){
+	camShake = {
+	    active: false,
+	    timer: 0,
+	    duration: 0,
+	    magnitude: 0,
+	    curve: undefined,
+	    smoothness: 1,
+	    frequency: 1,
+	    seed: 0,
+		prev_xoff: 0,
+		prev_yoff: 0
+	};
 }
 
-/// @desc Place in persistant or current Object (only for intializing)
-function initialize_camera_shake(number = 0){
-//camera shake
-	if (global.camShake) {
-		global.camShakeMagnitude = clamp(global.camShakeMagnitude, global.camShakemin, global.camShakemax)	
-		
-	    var cam = view_camera[number];
-	    var x_offset = random_range(-global.camShakeMagnitude, global.camShakeMagnitude);
-	    var y_offset = random_range(-global.camShakeMagnitude, global.camShakeMagnitude);
-	    camera_set_view_pos(cam, camera_get_view_x(cam) + x_offset, camera_get_view_y(cam) + y_offset);
-	    global.camShakeTimer -= 1;
-	    if (global.camShakeTimer <= 0) global.camShake = false;
+/// Goes in oCamera Step Event
+function camera_shake_step(cam=0)
+{
+    if (!camShake.active) return;
+
+    var t = camShake.timer / camShake.duration;
+
+    // Apply animation curve if provided
+    if (camShake.curve != -1) {
+        t = animcurve_channel_evaluate(animcurve_get_channel(camShake.curve, 0), 1 - t);
+    }
+
+    // Falloff (shake gets weaker over time)
+	var falloff = camShake.timer / camShake.duration;
+
+	if (camShake.curve != -1) {
+	    falloff = t
+	}
+
+	var xoff = smooth_noise(camShake.seed, camShake.frequency)
+	           * camShake.magnitude * falloff;
+
+	var yoff = smooth_noise(camShake.seed + 1000, camShake.frequency)
+	           * camShake.magnitude * falloff;
+
+
+    // Apply to camera
+	camera_set_view_pos(cam, finalCamX + xoff, finalCamY + yoff);
+
+    // Countdown
+    camShake.timer--;
+
+    if (camShake.timer <= 0) {
+        camShake.active = false;
+    }
+}
+
+/// @desc Start a camera shake with full control.
+/// @param duration     6  How long the shake lasts (frames)
+/// @param magnitude    2  Max shake offset
+/// @param smoothness   .5 How soft the shake moves (0 = jitter, 1 = smooth)
+/// @param curve        -1 Animation curve asset (optional)
+/// @param frequency    1  How fast the shake oscillates
+function camera_shake(duration = 6, magnitude = 2, smoothness = 0.5, curve = -1, frequency = 1)
+{
+	with (oCamera) {
+	    camShake.active    = true;
+	    camShake.duration  = max(1, ceil(duration));
+	    camShake.timer     = camShake.duration;
+	    camShake.magnitude = magnitude;
+	    camShake.smoothness = smoothness;
+	    camShake.curve     = curve;
+	    camShake.frequency = frequency;
+	    camShake.seed      = irandom(999999); // unique shake pattern
 	}
 }
+
 
 #endregion
 

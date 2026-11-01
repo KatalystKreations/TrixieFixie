@@ -1,8 +1,3 @@
-gamepads = []
-gamepad_main = undefined;
-gamepad_second = undefined;
-
-
 function getControls( _rightkey = ord("D"), _leftKey = ord("A"), _downkey = ord("S"), _upKey = ord("W"), _runKey = vk_lshift, _player_id = 0 ) {
 	// Ords
 	right = _rightkey;
@@ -88,7 +83,40 @@ function getControls( _rightkey = ord("D"), _leftKey = ord("A"), _downkey = ord(
 	startKeyPressed	= clamp(startKeyPressed, 	0, 1);
 
 }
-function getGPcontrols(_gp = 0){
+function getGPcontrols(_player_id = 0){
+	var _gp = undefined;
+	if (array_length(global.gamepads) > _player_id)
+		_gp = global.gamepads[_player_id];
+	if (_gp == undefined) {
+		aBtn = false;
+		bBtn = false;
+		xBtn = false;
+		yBtn = false;
+		aBtnPressed = false;
+		bBtnPressed = false;
+		xBtnPressed = false;
+		yBtnPressed = false;
+		aBtnReleased = false;
+		bBtnReleased = false;
+		xBtnReleased = false;
+		yBtnReleased = false;
+		rtBtn_val = 0;
+		ltBtn_val = 0;
+		rtBtn = false;
+		rbBtn = false;
+		ltBtn = false;
+		lbBtn = false;
+		rtBtn_pressed = false;
+		rbBtn_pressed = false;
+		ltBtn_pressed = false;
+		lbBtn_pressed = false;
+		rtBtn_released = false;
+		rbBtn_released = false;
+		ltBtn_released = false;
+		lbBtn_released = false;
+		return;
+	}
+
 	// Controller buttons (held)
 	aBtn = gamepad_button_check(_gp, gp_face1);
 	bBtn = gamepad_button_check(_gp, gp_face2);
@@ -163,12 +191,12 @@ function getPowerControls( _player_id = 0, power_1 = ord("F"), power_2 = ord("G"
 		_gp = global.gamepads[_player_id];
 	if (_gp != undefined) 
 	{
-	powerkey1 		 += gamepad_button_check(_player_id, gp_face3);
-	powerkey2 		 += gamepad_button_check(_player_id, gp_face4);
-	powerkey3 		 += gamepad_button_check(_player_id, gp_face2);
-	powerkey1pressed += gamepad_button_check_pressed(_player_id, gp_face3);
-	powerkey2pressed += gamepad_button_check_pressed(_player_id, gp_face4);
-	powerkey3pressed += gamepad_button_check_pressed(_player_id, gp_face2);
+	powerkey1 		 += gamepad_button_check(_gp, gp_face3);
+	powerkey2 		 += gamepad_button_check(_gp, gp_face4);
+	powerkey3 		 += gamepad_button_check(_gp, gp_face2);
+	powerkey1pressed += gamepad_button_check_pressed(_gp, gp_face3);
+	powerkey2pressed += gamepad_button_check_pressed(_gp, gp_face4);
+	powerkey3pressed += gamepad_button_check_pressed(_gp, gp_face2);
 		
 	powerkey1 		 = clamp(powerkey1, 0, 1)
 	powerkey2 		 = clamp(powerkey2, 0, 1)

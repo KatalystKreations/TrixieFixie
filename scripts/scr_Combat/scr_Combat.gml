@@ -270,10 +270,7 @@ function deal_damage(_target, _damage = 1, _cam_shake=true){
 	_target.hp -= _damage
 	_target.hit = true
 	
-	if (_cam_shake){
-	global.camShake = true; 
-	global.camShakeTimer = global.camShakeTime;
-	}
+	if (_cam_shake) camera_shake();
 }
 
 
@@ -283,8 +280,6 @@ function get_hit(_damage){
 	self.hp -= _damage
 
 	camera_shake()
-	global.camShake = true; 
-	global.camShakeTimer = global.camShakeTime;
 }
 
 //flash

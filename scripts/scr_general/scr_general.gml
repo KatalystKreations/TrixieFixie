@@ -27,14 +27,15 @@ function instance_nearest_array(_x, _y, _inst = []){
 		
 	var enemies = _inst
 	var len = array_length(enemies);
-	var _nearestVal = 999*aBLOCK;
 	var _nearestInst = enemies[0];
+	var _nearestVal = point_distance(_x, _y, _nearestInst.x, _nearestInst.y);
 	
-	for (var i = 0; i < len-1; i++) {
+	for (var i = 1; i < len; i++) {
 		var e = enemies[i];
-		if (point_distance(_x,_x, e.x, e.y) < point_distance(_x,_x, _nearestInst.x, _nearestInst.y)) {
+		var _distance = point_distance(_x, _y, e.x, e.y);
+		if (_distance < _nearestVal) {
 			_nearestInst = e
-			_nearestVal = point_distance(_x,_y, e.x, e.y)
+			_nearestVal = _distance
 		}
 	}
 	
