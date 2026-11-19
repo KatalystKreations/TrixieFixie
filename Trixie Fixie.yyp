@@ -244,6 +244,7 @@
     {"id":{"name":"sRobot_HumShip","path":"sprites/sRobot_HumShip/sRobot_HumShip.yy",},},
     {"id":{"name":"sRobot_Plane_Bomb","path":"sprites/sRobot_Plane_Bomb/sRobot_Plane_Bomb.yy",},},
     {"id":{"name":"sRobot_Plane_Drop","path":"sprites/sRobot_Plane_Drop/sRobot_Plane_Drop.yy",},},
+    {"id":{"name":"sRobot_Plane","path":"sprites/sRobot_Plane/sRobot_Plane.yy",},},
     {"id":{"name":"sRobot_Trolly_Death_sml","path":"sprites/sRobot_Trolly_Death_sml/sRobot_Trolly_Death_sml.yy",},},
     {"id":{"name":"sRobot_Trolly_Death","path":"sprites/sRobot_Trolly_Death/sRobot_Trolly_Death.yy",},},
     {"id":{"name":"sRobot_Trolly_Idle_sml","path":"sprites/sRobot_Trolly_Idle_sml/sRobot_Trolly_Idle_sml.yy",},},

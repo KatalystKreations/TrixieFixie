@@ -1,1 +1,1 @@
-fadetoDeath(0.1)
+fadetoDeath(0.07)

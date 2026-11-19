@@ -184,6 +184,13 @@ if (hit_flashTimer)
 		if (slideBoostTimer > 0){
 			sprite(spr_dashFlip)
 			image_index = map_value(slideBoostTimer, 1, slideBoostTime*2, image_number-1, 0)
+			if is_even(slideBoostTimer){
+				var _fx = create_dust(oDashFX);
+				_fx.sprite_index = sprite_index;
+				_fx.image_index = image_index;
+				_fx.image_xscale = face;
+				_fx.depth = depth - 1;
+			}
 		}
 	}
 	//start on first frame
