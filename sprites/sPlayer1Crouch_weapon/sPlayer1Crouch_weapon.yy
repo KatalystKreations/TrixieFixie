@@ -29,8 +29,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Modern",
-    "path":"folders/Sprites/Players/Trixie/Modern.yy",
+    "name":"Lyra",
+    "path":"folders/Sprites/Players/Main/Lyra.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

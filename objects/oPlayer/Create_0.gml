@@ -105,18 +105,19 @@ collision = [oWall, col_tiles];
 		slidesnd_cooldown_max = aSecond * .5;
 
 //sprite stuff
-	spr_idle = sPlayer1Idle_weapon
-	spr_run = sPlayer1Run_weapon
-	spr_turn = sPlayer1Turn_weapon
-	spr_jump = sPlayer1Jump_weapon
-	spr_jump_trans = sPlayer1JumpTrans_weapon
-	spr_fall = sPlayer1Fall_weapon
-	spr_crouch = sPlayer1Crouch_weapon
-	spr_crawl = sPlayer1Crawl_weapon
-	spr_slide = sPlayer1Crouch_weapon
-	spr_wallslide = sPlayer1WallSlide_weapon
-	spr_ledgegrab = sPlayer1LedgeGrab
-	spr_dash = sPlayer1Crawl_weapon
+	spr_idle 		= sPlayer1Idle_weapon
+	spr_run  		= sPlayer1Run_weapon
+	spr_turn 		= sPlayer1Turn_weapon
+	spr_jump 		= sPlayer1Jump_weapon
+	spr_jump_trans 	= sPlayer1JumpTrans_weapon
+	spr_fall 		= sPlayer1Fall_weapon
+	spr_crouch 		= sPlayer1Crouch_weapon
+	spr_crawl 		= sPlayer1Crawl_weapon
+	spr_slide 		= sPlayer1Crouch_weapon
+	spr_wallslide 	= sPlayer1WallSlide_weapon
+	spr_ledgegrab 	= sPlayer1LedgeGrab
+	spr_dashFlip  	= sPlayer1Flip_weapon
+	spr_dashAir   	= sPlayer1Crawl_weapon
 
 	current_sprite = sprite_index;
 
@@ -166,7 +167,7 @@ stateFree = function()
 	if (keyboard_check_pressed(vk_space) && can_dash) {
 		if (dashCooldown <= 0) {
 			dashCooldown = dashCooldownMax;
-			dashTimer = dashTime;
+			dashTimer = grounded ? dashTime*2 : dashTime;
 			can_dash = false;
 			state = stateDash;
 		}
@@ -560,11 +561,18 @@ stateDash = function()
 		if is_even(dashTimer){
 			var _fx = create_dust(oDashFX);
 			_fx.sprite_index = sprite_index;
+			_fx.image_index = image_index;
 			_fx.image_xscale = face;
 			_fx.depth = depth - 1;
 		}
 	}else {
 		dashCooldown = dashCooldownMax;
+		state = stateFree;
+	}
+	if (jumpKeyPressed) {
+		dashTimer = 0
+		dashCooldown = dashCooldownMax;
+		slideBoostTimer = slideBoostTime; 
 		state = stateFree;
 	}
 	

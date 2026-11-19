@@ -171,18 +171,30 @@ function smooth_noise(seed, freq) {
     return sin(t) * 0.6 + sin(t * 0.5) * 0.3 + sin(t * 0.25) * 0.1;
 }
 
-
+/// Returns a value with a 0 in the the tens place when less than 10
+function pad2(_n)
+{
+    return (_n < 10) ? "0" + string(_n) : string(_n);
+}
 /// is_even(num)
 function is_even(num) {
     return num mod 2 == 0;
 }
 
 
-
-function room_is(_room){
-	if (room == _room) return true;
-		return false;
+/**
+ * @param {asset.GMRoom} _room Room to check for.
+ * @param {asset.GMRoom} ... Other rooms to check for.
+*/
+function room_is(_room) {
+    for (var i = 0; i < argument_count; i++) {
+        if (room == argument[i]) {
+            return true;
+        }
+    }
+    return false;
 }
+
 
 
 /**

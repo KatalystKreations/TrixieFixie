@@ -35,8 +35,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Young",
-    "path":"folders/Sprites/Players/Trixie/Young.yy",
+    "name":"Trixie",
+    "path":"folders/Sprites/Players/Main/Trixie.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -13,5 +13,7 @@ draw_hitFlash(function (){
 
 if !debug_mode exit
 //Debug
+if target_x >= x
 draw_circle(xstart+patrol_range, y, 1, false);
+if target_x <= x
 draw_circle(xstart-patrol_range, y, 1, false);

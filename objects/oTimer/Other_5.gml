@@ -1,15 +1,11 @@
-var h = string_format(hour,   2, 0);
-var m = string_format(minute, 2, 0);
-var s = string_format(second, 2, 0);
 
-save_open(true)
 
-this_time = timer
+if room_is(rm_Initialization, rm_StartFade) exit;
+	
 
-//if (this_time < best_time) {
-	//
-//}
-save_progress(string(room_get_name(room)) + "_Time", "Timer - " + h + ":" + m + ":" + s)
-
-save_open(false)
+if (timer < load_section("Times", room_get_name(room) + "_BestTime", 999_999_999, true) )
+{
+    best_time = timer;
+    save_section("Times", room_get_name(room) + "_BestTime", best_time, true);
+}
 

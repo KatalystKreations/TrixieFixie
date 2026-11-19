@@ -104,11 +104,16 @@ if (hit_flashTimer)
 	if (xmoving && sprite_index_is(sPlayer1Run_weapon)) image_speed = clamp(abs(xspd) / moveSpd[runType], 0.1, 1.4) else {
 		image_speed = 1;
 	}
-	
-if (dashTimer > 0) {
-	sprite(spr_dash)
-	mask_index = spr_slide; 
-}else
+
+	//Dash
+	if (dashTimer > 0) {
+		if onGround{
+			sprite(spr_dashFlip)
+			image_index = map_value(dashTimer, 1, dashTime*2, image_number-1, 0)
+		}
+		else sprite(spr_dashAir)
+		mask_index = spr_slide; 
+	}else
 //ground sprites
 	if (grounded){ 
 		
@@ -175,6 +180,11 @@ if (dashTimer > 0) {
 		//if rising
 		if (yspd < 0){ sprite_index = spr_jump}
 		if (yspd > -2 && yspd < 2) { sprite_index = spr_jump_trans}
+		//if slideboosting
+		if (slideBoostTimer > 0){
+			sprite(spr_dashFlip)
+			image_index = map_value(slideBoostTimer, 1, slideBoostTime*2, image_number-1, 0)
+		}
 	}
 	//start on first frame
 	if (current_sprite != sprite_index) {

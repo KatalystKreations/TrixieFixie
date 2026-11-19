@@ -4,7 +4,7 @@ if (life <= 0) {
 }
 
 if (object_is_ancestor(owner.object_index, oPlayer_par)) {
-	show_debug_message("Player made me!")
+	//show_debug_message("Player made me!")
 	if (did_hit) {
 		with (owner) {
 			if (!grounded) {

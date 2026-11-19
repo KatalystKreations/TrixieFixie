@@ -59,8 +59,8 @@ function apply_knockback(attacker, target, force, bouce_up = true) {
 	if (bouce_up) {
 		target.yspd = -(force/2)
 	}
-	show_debug_message(lengthdir_x(force, dir))
-	show_debug_message(lengthdir_y(force, dir))
+	//show_debug_message(lengthdir_x(force, dir))
+	//show_debug_message(lengthdir_y(force, dir))
 }
 
 

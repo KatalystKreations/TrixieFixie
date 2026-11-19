@@ -18,10 +18,12 @@ saveFileName= string("save{0}.ini", saveFileNum)
  * @param {bool} _bool  Whether to open (true) or close (false) the INI file.
  */
 function save_open(_bool=true) {
-    if (_bool)
+    if (_bool){
         ini_open(global.saveFileName);
+		show_debug_message("Saving to: " + "...AppData\\Local\\Trixie_Fixie\\" + global.saveFileName);
+		}
     else
-        ini_close();
+        return ini_close();
 }
 
 /**

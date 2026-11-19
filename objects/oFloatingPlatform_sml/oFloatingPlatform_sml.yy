@@ -11,8 +11,8 @@
   "name":"oFloatingPlatform_sml",
   "overriddenProperties":[],
   "parent":{
-    "name":"Collisions",
-    "path":"folders/Objects/Collisions.yy",
+    "name":"Enemies",
+    "path":"folders/Objects/ENTITES/Enemies.yy",
   },
   "parentObjectId":{
     "name":"oWall",
