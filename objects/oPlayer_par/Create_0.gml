@@ -61,6 +61,18 @@ function create_dust(_dust = oDustLand, _x = x, _y = y) {
 	return landDust;
 }
 
+function dash_fx(frequency=8){
+	dustDistance += abs(xspd);
+	if (dustDistance >= frequency)
+	{
+		dustDistance = 0;
+		var _fx = create_dust(oDashFX);
+		_fx.sprite_index = sprite_index;
+		_fx.image_index = image_index;
+		_fx.image_xscale = face;
+		//_fx.depth = depth - 1;
+	}			
+}
 
 
 //Initialize Inputs

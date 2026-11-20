@@ -7,6 +7,7 @@ curve_create()
 	moveSpd[1] = 4.25;
 	moveSpd[2] = 2.5;	//crawlspd
 	moveSpd[3] = 7.5;	//slideboost spd
+	moveSpd[4] = 7.5;	//dash boost spd
 	xspd = 0;
 	yspd = 0;
 	runType = 0;
@@ -35,10 +36,12 @@ curve_create()
 		head_clear = !place_meeting(x, y-sprite_get_height(sPlayer1Idle_weapon), oWall); 
 	// Dash
 		can_dash = true;
-		dashTime = 15;
+		dashTime = 20;
 		dashTimer = 0;
 		dashCooldownMax = 15;
 		dashCooldown = 0;
+		dash_height = 0
+		dustDistance = 0;
 	// Swinging
 		pivot_point = noone;
 
@@ -183,7 +186,6 @@ stateFree = function()
 		// Slide boosting
 		if (slideBoostTimer > 0)
 		{
-		slideBoostTimer--
 		runType = 3
 		}
 		
@@ -552,19 +554,25 @@ return "WallSlide";
 // State Dash
 stateDash = function()
 {
-	
+	if ((moveDir != sign(xspd) && moveDir != 0)) {
+		dashTimer = 0
+		dashCooldown = dashCooldownMax;
+		state = stateFree
+	}
 	
 	if (dashTimer) {
-		dashTimer--
-		xspd = face * moveSpd[3]
-		yspd = 0;
-		if is_even(dashTimer){
-			var _fx = create_dust(oDashFX);
-			_fx.sprite_index = sprite_index;
-			_fx.image_index = image_index;
-			_fx.image_xscale = face;
-			_fx.depth = depth - 1;
+		// Upon Entering Dash State
+		if dashTimer == dashTime{
+			// Calculate spd
+			moveSpd[4] = max(abs(xspd), moveSpd[3]);
 		}
+		dashTimer--
+		xspd = face * moveSpd[4]
+		yspd = 0;
+		// DASH FX //
+		dash_fx(6)
+			
+		
 	}else {
 		dashCooldown = dashCooldownMax;
 		state = stateFree;

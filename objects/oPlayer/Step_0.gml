@@ -183,14 +183,33 @@ if (hit_flashTimer)
 		//if slideboosting
 		if (slideBoostTimer > 0){
 			sprite(spr_dashFlip)
-			image_index = map_value(slideBoostTimer, 1, slideBoostTime*2, image_number-1, 0)
-			if is_even(slideBoostTimer){
-				var _fx = create_dust(oDashFX);
-				_fx.sprite_index = sprite_index;
-				_fx.image_index = image_index;
-				_fx.image_xscale = face;
-				_fx.depth = depth - 1;
+			//image_index = map_value(slideBoostTimer, 1, slideBoostTime*2, image_number-1, 0)
+			
+			var ray = scr_raycast(x,y,x,room_height,collision,false,id)
+			if (ray) {
+				// Timer should be equal to 58 from 60 when it gets here
+				if (slideBoostTimer == slideBoostTime-2) {
+					dash_height = ray.y
+				}
+				
 			}
+			else {
+				dash_height = room_height
+			}
+			var dist_from_ground = distance_to_point(x, dash_height)
+			var halfway = (image_number-1) /2;
+			var fullway = (image_number-1)
+			if (yspd < 0)
+			{
+				image_index = map_value(dist_from_ground, 0, aBLOCK * 2, 0, halfway-1);
+			}
+			else
+			{
+				image_index = map_value(dist_from_ground, aBLOCK * 2, 0, halfway, fullway);
+			}
+			
+			// DASH FX //
+			dash_fx()
 		}
 	}
 	//start on first frame

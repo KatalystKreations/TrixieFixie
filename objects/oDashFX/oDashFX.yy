@@ -9,8 +9,8 @@
   "name":"oDashFX",
   "overriddenProperties":[],
   "parent":{
-    "name":"Others",
-    "path":"folders/Objects/ENTITES/Players/Others.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

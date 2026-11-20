@@ -86,6 +86,20 @@ function sprite_index_is(_sprite_index, _img_index = undefined){
 		return (sprite_index == _sprite_index && sprite_image_index_is(_img_index));
 	}
 }
+/**
+ * Checks if current object is the defined sprite. Optionally checks if the sprite is on the defined image index.
+ * @param {asset.gmsprite} _sprite_index The sprite to check for.
+ * @param {real} [_img_index] OPTIONAL! The frame to check for.
+ * @returns {bool} Description
+ */
+function sprite_is(_sprite_index, _img_index = undefined){
+	if _img_index = undefined {
+	return (sprite_index == _sprite_index);
+	}
+	else {
+		return (sprite_index == _sprite_index && sprite_image_index_is(_img_index));
+	}
+}
 
 
 // Doesen't work
