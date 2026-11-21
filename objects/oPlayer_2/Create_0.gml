@@ -253,7 +253,30 @@ stateFree = function()
 				state = stateOnWall 
 			}
 #endregion
-return "Free";
+
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+	
+	return "Free";
 	
 }
 
@@ -281,6 +304,27 @@ stateSlide = function()
 	}
 
 #endregion
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 return "Slide";
 }
 
@@ -294,6 +338,27 @@ stateCrouch = function()
 		crouching = false;
 		state = stateFree;	//back to free state
 	}
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 return "Crouch";
 }
 
@@ -312,6 +377,27 @@ stateCrawl = function()
 	if (!moveDir && abs(xspd) < deceleration) {xspd = 0} 					//Come to a complete stop when super slow
 	xspd = clamp(xspd, -moveSpd[runType], moveSpd[runType]) 					//Run Cap
 	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
 	return "Crawl";
 }
 
@@ -370,7 +456,29 @@ stateOnWall = function()
 			state = stateFree; 	//back to free state
 		}
 #endregion
-return "WallSlide";
+
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+	return "WallSlide";
 }
 
 

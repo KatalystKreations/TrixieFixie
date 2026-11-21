@@ -12,7 +12,7 @@ curve_step()
 
 #region // Detect //
 // Inputs
-	getControls(ord("D"), ord("A"), ord("S"), ord("W"), vk_lshift, _player_id)
+	getControls(vk_right, vk_left, vk_down, vk_up, vk_rshift, _player_id)
 	getGPcontrols(_player_id)
 	getPowerControls(_player_id)
 	runKey += xBtn;

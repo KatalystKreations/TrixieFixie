@@ -14,7 +14,10 @@ function activate(){
 	}
 	
 	//Stop Timer if level completed.
-	if last oTimer.active = false;
+	if last {
+		oTimer.active = false
+		oTimer.save_time()
+	};
 		
 	active = true
 	

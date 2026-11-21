@@ -47,11 +47,16 @@ curve_step()
 // Exit if Paused
 if gamestate_is(GAMESTATE.PAUSED) exit;
 
-//two player
-if (!instance_exists(oPlayer_2) && keyboard_check_pressed(vk_numpad5)){
+//two player - toggle
+if ( keyboard_check_pressed(vk_numpad5) || gamepad_button_check_pressed(_player_id+1,gp_start)){
+	global.player2_joined = !global.player2_joined
+}
+if (global.player2_joined && !instance_exists(oPlayer_2)) {
 	instance_create_depth(x, y, depth, oPlayer_2, {_player_id: 1})
 }
-
+if (!global.player2_joined && instance_exists(oPlayer_2)) {
+	instance_destroy(oPlayer_2)
+}
 
 //run state code if game is not paused
 if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) {

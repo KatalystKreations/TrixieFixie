@@ -31,7 +31,7 @@
   "height":100,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"5dab78d0-6b09-400d-a769-58103d3adbea","blendMode":0,"displayName":"Weapon","isLocked":false,"name":"5dab78d0-6b09-400d-a769-58103d3adbea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
+    {"$GMImageLayer":"","%Name":"5dab78d0-6b09-400d-a769-58103d3adbea","blendMode":0,"displayName":"Weapon","isLocked":true,"name":"5dab78d0-6b09-400d-a769-58103d3adbea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
     {"$GMImageLayer":"","%Name":"427aa9fb-b4b0-4d07-a8b0-b575037e22f5","blendMode":0,"displayName":"All","isLocked":false,"name":"427aa9fb-b4b0-4d07-a8b0-b575037e22f5","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"ed004a4b-b732-4506-959a-8ce2010a3c99","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"ed004a4b-b732-4506-959a-8ce2010a3c99","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
   ],

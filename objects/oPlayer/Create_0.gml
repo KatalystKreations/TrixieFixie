@@ -160,8 +160,8 @@ stateFree = function()
 		wall_jump_delay = max(wall_jump_delay-1, 0)
 	if (slideBoostTimer && !slideBoosted) {slideBoosted = true; xspd *= 1.4}
 		
-	// Slide
-	if (downKey && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
+	// Slide -Fixme
+	if (downKeyPressed && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
 		{
 			slideTimer = slideTime
 			state = stateSlide;
@@ -291,9 +291,9 @@ stateFree = function()
 	
 	
 #endregion
-		_h = noone;
 
 #region Combat
+		_h = noone;
 	if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
 		_h = noone;
 		var
@@ -596,19 +596,51 @@ stateDash = function()
 }
 
 stateSwinging = function(){
-	
+	if (!exists(pivot_point)) {
+		state_to(stateFree);
+		return;
+	}
 	x = pivot_point.x
 	y = pivot_point.y + (sprite_get_height(sPlayer1Swing_weapon) * 1.4)
-	pivot_point.can_float = false;
+	with (pivot_point) {
+		if (!is_grabbed) {
+			is_grabbed = true;
+			can_float = false;
+			xspd = other.xspd
+		}
+	}
 	
 	if (!(mouse_check_button(mb_right) || rbBtn) ) {
 		pivot_point.can_float = true;
+		pivot_point.is_grabbed = false;
 		pivot_point = noone;
-		
+
 		state = stateFree
 		xspd += moveSpd[1]*moveDir
 		yspd = jspd*1.5
 	}
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				//getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+	
 	
 }
 

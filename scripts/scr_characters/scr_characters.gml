@@ -286,27 +286,18 @@ function freeze(){
 	
 }
 
-/**
- //*  Places everything back at it's spawnpoint.
- //*/
-//function reset(){
-    //with all
-	//{
-    //x = xstart;
-    //y = ystart;
-    //}
-    //
-    //with oPlayer_par
-	//{
-    //x = global.spawn_x;
-    //y = global.spawn_y;
-    //}
-    //
-//}
+
 
 function decelerate(_decel = variable_instance_exists(id, "deceleration") ? deceleration : 0.3) {
+	if !variable_instance_exists(id, "deceleration"){
+		deceleration = 0.2
+	}
+	if !variable_instance_exists(id, "acceleration"){
+		acceleration = 0.2
+	}
+	// Slow
 	if (abs(xspd) > 0) { xspd -= (sign(xspd) * _decel);}
-			//come to a complete stop when super slow
-			if (!moveDir && abs(xspd) < acceleration)  {  xspd = 0; return true;}
+	//Come to a complete stop when super slow
+	if (!moveDir && abs(xspd) < acceleration)  {  xspd = 0; return true;}
 	return false
 }

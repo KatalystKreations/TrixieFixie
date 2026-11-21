@@ -13,7 +13,9 @@
   ],
   "managed":true,
   "name":"oPlayer_2",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oPlayer_par","path":"objects/oPlayer_par/oPlayer_par.yy",},"propertyId":{"name":"_player_id","path":"objects/oPlayer_par/oPlayer_par.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1",},
+  ],
   "parent":{
     "name":"Players",
     "path":"folders/Objects/ENTITES/Players.yy",
