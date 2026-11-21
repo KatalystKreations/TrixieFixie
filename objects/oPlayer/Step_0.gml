@@ -53,16 +53,39 @@ if (!instance_exists(oPlayer_2) && keyboard_check_pressed(vk_numpad5)){
 }
 
 
-
 //run state code if game is not paused
-if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) state();
+if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) {
+	state();
+	if (state_is(stateCrawl, stateCrouch, stateSlide)) {
+		#region Combat
+			if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
+				_h = noone;
+				var
+				_x = 25.20, 
+				_y = -6.60, 
+				_xs = 3.90, 
+				_ys = 0.82, 
+				_frames = 1 
+				
+				_h = spawn_hitbox(
+					_x,  _y, 
+					damage, 
+					_frames, 
+					_xs, _ys
+				)
+				 
+			}	
+		#endregion
+		
+	}
+}
 
 
 
 
 
 
-#region Hit Stuff
+#region Getting Hit 
 if (hit)
 {
 	hit = false;
@@ -101,11 +124,12 @@ if (hit_flashTimer)
 	mask_index = spr_idle
 	image_xscale = face;
 	//scale image speed to player speed
-	if (xmoving && sprite_index_is(sPlayer1Run_weapon)) image_speed = clamp(abs(xspd) / moveSpd[runType], 0.1, 1.4) else {
+	if (xmoving && sprite_index_is(sPlayer1Run_weapon)) 
+		image_speed = clamp(abs(xspd) / moveSpd[runType], 0.1, 1.4) else {
 		image_speed = 1;
 	}
 
-	//Dash
+	#region //Dash
 	if (dashTimer > 0) {
 		if onGround{
 			sprite(spr_dashFlip)
@@ -113,9 +137,10 @@ if (hit_flashTimer)
 		}
 		else sprite(spr_dashAir)
 		mask_index = spr_slide; 
-	}else
-//ground sprites
-	if (grounded){ 
+	}
+	#endregion 
+	#region //ground sprites
+	else if (grounded){ 
 		
 	//make dust
 		if (xmoving && (floor(image_index) == 3 || floor(image_index) == 8)) {
@@ -156,7 +181,8 @@ if (hit_flashTimer)
 			sprite_index = spr_ledgegrab
 		}
 	}
-//air sprites
+	#endregion
+	#region //air sprites
 	else if (pivot_point) {
 			sprite(sPlayer1Swing_weapon)
 		}
@@ -212,6 +238,8 @@ if (hit_flashTimer)
 			dash_fx()
 		}
 	}
+	#endregion
+	
 	//start on first frame
 	if (current_sprite != sprite_index) {
 	current_sprite = sprite_index;

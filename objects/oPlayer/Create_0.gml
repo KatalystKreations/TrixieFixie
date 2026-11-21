@@ -161,13 +161,13 @@ stateFree = function()
 	if (slideBoostTimer && !slideBoosted) {slideBoosted = true; xspd *= 1.4}
 		
 	// Slide
-	if (downKeyPressed && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
+	if (downKey && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
 		{
 			slideTimer = slideTime
 			state = stateSlide;
 		}
 	// Dash
-	if (keyboard_check_pressed(vk_space) && can_dash) {
+	if ((keyboard_check_pressed(vk_space) || yBtnPressed) && can_dash) {
 		if (dashCooldown <= 0) {
 			dashCooldown = dashCooldownMax;
 			dashTimer = grounded ? dashTime*2 : dashTime;
@@ -282,7 +282,7 @@ stateFree = function()
 	
 	var can_swing = distance_to_object(oRobot_Hooker) <= aBLOCK /2
 	
-	if (mouse_check_button(mb_right)) {
+	if (mouse_check_button(mb_right) || rbBtn) {
 		if (can_swing) {
 			pivot_point = instance_nearest(x, y, oRobot_Hooker);
 			state = stateSwinging
@@ -294,7 +294,7 @@ stateFree = function()
 		_h = noone;
 
 #region Combat
-	if (mouse_check_button_pressed(mb_left)) {
+	if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
 		_h = noone;
 		var
 		_x = 23.60, 
@@ -335,14 +335,7 @@ stateFree = function()
 		 
 	}	
 
-	
-	
-	
 #endregion
-	
-	
-	
-	
 	
 	
 	
@@ -608,7 +601,7 @@ stateSwinging = function(){
 	y = pivot_point.y + (sprite_get_height(sPlayer1Swing_weapon) * 1.4)
 	pivot_point.can_float = false;
 	
-	if (!mouse_check_button(mb_right)) {
+	if (!(mouse_check_button(mb_right) || rbBtn) ) {
 		pivot_point.can_float = true;
 		pivot_point = noone;
 		
@@ -623,6 +616,20 @@ stateDead = function(){
 	if (gamestate_is(GAMESTATE.PLAYING)) {
 		state = stateFree;
 	}
+	#region Movement
+		#region Add Movement to variables
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0;
+					dashTimer = 0;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+		#endregion
+	#endregion
 }
 
 

@@ -161,6 +161,7 @@
     {"id":{"name":"scr_players","path":"scripts/scr_players/scr_players.yy",},},
     {"id":{"name":"scr_raycast","path":"scripts/scr_raycast/scr_raycast.yy",},},
     {"id":{"name":"scr_sprites","path":"scripts/scr_sprites/scr_sprites.yy",},},
+    {"id":{"name":"scr_state","path":"scripts/scr_state/scr_state.yy",},},
     {"id":{"name":"seqToolSwitchGadget","path":"sequences/seqToolSwitchGadget/seqToolSwitchGadget.yy",},},
     {"id":{"name":"shd_Flash","path":"shaders/shd_Flash/shd_Flash.yy",},},
     {"id":{"name":"Level_2","path":"sounds/Level_2/Level_2.yy",},},
