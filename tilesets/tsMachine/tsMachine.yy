@@ -13,7 +13,7 @@
     "TileSerialiseData":[],
   },
   "name":"tsMachine",
-  "out_columns":8,
+  "out_columns":13,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -39,5 +39,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":64,
+  "tile_count":160,
 }
