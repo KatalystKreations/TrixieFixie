@@ -5,8 +5,10 @@ with (oPlayer_par) {
 }
 //draw_line(x+x_aim, y, x+x_aim, room_height)
 if (collision_line(x+x_aim, y, x+x_aim, room_height, oPlayer_par,false,true)) {
-	fire_projectile_dir(x,y,270, oPlane_Bomb)
+	sprite(sRobot_Plane_Drop)
+	fire_projectile_dir(x,y,270, oPlane_Bomb, 5, 10)
 }
+
 draw_hitFlash(function(){
 	var val = hover(0.05 + choose(0.001, -0.001, 0.00))
     draw_sprite_ext(

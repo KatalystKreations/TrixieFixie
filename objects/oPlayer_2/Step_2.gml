@@ -18,10 +18,11 @@
 			else game_end()
 		}
 	}
-//death
-	if (hp <= 0 && !oGame.alarm[0]){
-		oGame.alarm[0] = 60
-	}
-	if (oGame.alarm[0]) {
-		xspd = 0;
+//Death
+	if (hp <= 0 
+		&& gamestate_is(GAMESTATE.PLAYING) 
+		&& !instance_exists(oFade)
+	)
+	{
+		state = stateDead;
 	}

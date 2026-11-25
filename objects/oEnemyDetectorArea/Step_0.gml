@@ -1,5 +1,5 @@
 
-if (!place_meeting(x, y, oEnemy_par) && !roomClear) {
+if (!place_meeting(x, y, oEnemy_par) && !roomClear) || !place_meeting(x, y, oPlayer_par){
 	roomClear = true;
 	with (oMachineDoor) {
 		if (room_id == other.room_id) {
@@ -8,7 +8,7 @@ if (!place_meeting(x, y, oEnemy_par) && !roomClear) {
 	}
 }
 else 
-if ( place_meeting(x, y, oEnemy_par) && roomClear){
+if (place_meeting(x, y, oEnemy_par) && roomClear){
 	roomClear = false;
 	with (oMachineDoor) {
 		if (room_id == other.room_id) {

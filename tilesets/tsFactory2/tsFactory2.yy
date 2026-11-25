@@ -1,0 +1,46 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tsFactory2",
+  "autoTileSets":[
+    {"$GMAutoTileSet":"","%Name":"Factory","closed_edge":false,"name":"Factory","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[
+        49,62,61,60,53,60,60,60,54,60,60,60,60,60,60,60,48,48,48,48,41,41,41,41,50,50,50,50,57,57,57,57,51,45,
+        40,40,42,42,58,58,56,56,43,44,59,46,52,
+      ],},
+  ],
+  "macroPageTiles":{
+    "SerialiseHeight":5,
+    "SerialiseWidth":7,
+    "TileCompressedData":[
+      3,0,12,14,-4,0,4,12,0,0,14,-3,0,4,30,0,0,32,-4,0,2,30,32,-11,0,
+    ],
+    "TileDataFormat":1,
+  },
+  "name":"tsFactory2",
+  "out_columns":9,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"Tilesets",
+    "path":"folders/Tile Sets/Tilesets.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"s_tsFactory2",
+    "path":"sprites/s_tsFactory2/s_tsFactory2.yy",
+  },
+  "spriteNoExport":false,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":32,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":32,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":90,
+}

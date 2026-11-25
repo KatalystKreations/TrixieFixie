@@ -124,8 +124,9 @@ stateAgro = function(){
 		    xspd = 0;
 		}
 	//face the player
-		if (oPlayer.x < x) face = -1
-		if (oPlayer.x > x) face = 1
+		var player = instance_nearest(x,y,oPlayer_par);
+		if (player.x < x) face = -1
+		if (player.x > x) face = 1
 	xspd = spd * face;
 	
 	

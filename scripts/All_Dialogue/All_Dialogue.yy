@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"All_Dialogue",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"All_Dialogue",
+  "parent":{
+    "name":"Dialogue",
+    "path":"folders/Objects/ENTITES/oNPCs/Dialogue.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

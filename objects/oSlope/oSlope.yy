@@ -6,8 +6,8 @@
   "name":"oSlope",
   "overriddenProperties":[],
   "parent":{
-    "name":"Collisions",
-    "path":"folders/Objects/Collisions.yy",
+    "name":"Ugly",
+    "path":"folders/Objects/Collisions/Ugly.yy",
   },
   "parentObjectId":{
     "name":"oWall",

@@ -41,7 +41,7 @@
   "origin":9,
   "parent":{
     "name":"Checkpoint",
-    "path":"folders/Sprites/Players/Others/Checkpoint.yy",
+    "path":"folders/Sprites/ENITITIES/Player/Other/Checkpoint.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

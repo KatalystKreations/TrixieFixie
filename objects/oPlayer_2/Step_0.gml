@@ -18,6 +18,30 @@ curve_step()
 	runKey += xBtn;
 	clamp(runKey, 0, 1)
 // Ground
+	with (oTempPlatform)
+	{
+	    // If the platform is not activated		
+			if (!active)
+		    {
+				// Check if it's already in the collision list
+			        if (!array_contains(other.collision, id))
+			        {
+						// If not in the list, add it to the list
+			            array_push(other.collision, id);
+			        }
+		    }
+		// If the platform is active
+		    else
+		    {
+				// Remove self as collision
+			        var ind = array_get_index(other.collision, id);
+				
+			        if (ind != -1)
+			        {
+			            array_delete(other.collision, ind, 1);
+			        }
+		    }
+	}
 	grounded = place_meeting( x, y+1, collision);
 	ground = instance_place(x, y+1, collision[0])
 // Direction
@@ -55,10 +79,34 @@ if gamestate_is(GAMESTATE.PAUSED) exit;
 
 
 //run state code if game is not paused
-if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) state();
+if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD){
+	 state();
+	
+	// Crouch Attack
+	if (state_is(stateCrawl, stateCrouch, stateSlide)) {
+		#region Combat
+			if (rtBtn_pressed) {
+				_h = noone;
+				var
+				_x = 2.00, 
+				_y = -5.00, 
+				_xs = 3.00, 
+				_ys = 1.00, 
+				_frames = 1 
+				
+				_h = spawn_hitbox(
+					_x,  _y, 
+					damage, 
+					_frames, 
+					_xs, _ys
+				)
+				 
+			}	
+		#endregion
+		
+	}
 
-
-
+}
 
 
 
@@ -173,6 +221,10 @@ if (hit_flashTimer)
 		if (yspd < 0){ sprite_index = spr_jump}
 			
 		if (yspd > -1 && yspd < 1) { sprite_index = spr_jump_trans}
+	}
+// Dead
+	if (hp<=0) {
+		sprite(spr_Dead)
 	}
 	//start on first frame
 	if (current_sprite != sprite_index) {

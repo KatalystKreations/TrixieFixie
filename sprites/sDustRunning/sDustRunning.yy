@@ -37,7 +37,7 @@
   "origin":7,
   "parent":{
     "name":"sDust",
-    "path":"folders/Sprites/Players/Main/sDust.yy",
+    "path":"folders/Sprites/ENITITIES/Player/Other/sDust.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

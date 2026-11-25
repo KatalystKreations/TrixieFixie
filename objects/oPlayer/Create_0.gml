@@ -44,41 +44,38 @@ curve_create()
 		dustDistance = 0;
 	// Swinging
 		pivot_point = noone;
-
-
-//Jumping
-	regGrav = .35;
-	jumpGrav = .40;
-	grav = regGrav;
-	maxGravSpd = 10;
-	jspd = -5;
-	dustLand = true;
-	jumped = false;
-	//Jump Time
-		jumpTimer = 0;
-		jumpTime = 10
-	//coyote time
-		coyoteTimer = 0;
-		coyoteTime = 10;
-	//jump buffering
-		jumpBufferTimer = 0;
-		jumpBufferTime = 5;
-	
+	//Jumping
+		regGrav = .35;
+		jumpGrav = .40;
+		grav = regGrav;
+		maxGravSpd = 10;
+		jspd = -5;
+		dustLand = true;
+		jumped = false;
+		//Jump Time
+			jumpTimer = 0;
+			jumpTime = 10
+		//coyote time
+			coyoteTimer = 0;
+			coyoteTime = 10;
+		//jump buffering
+			jumpBufferTimer = 0;
+			jumpBufferTime = 5;
 		
-col_tiles = layer_tilemap_get_id("MainTiles");
-collision = [oWall, col_tiles];
-
-//wall jumping / wall sliding
-	on_wall = false;
-	wall_x_jump_spd = 7;
-	wall_y_jump_spd = -6.5;
-	wall_slide_spd_max = 2; 	//the lower the slower
-	wall_jump_delay = 0;
-	wall_jump_delay_max = 15; 	//how long in frames you cant control direction after wall jumping
-	wall_dust = 0;
-	side = bbox_right
-	//Ledge Grabbing
-		grabbing_ledge = false;
+// Collsions
+	col_tiles = layer_tilemap_get_id("MainTiles");
+	collision = [oWall, col_tiles];
+	//wall jumping / wall sliding
+		on_wall = false;
+		wall_x_jump_spd = 7;
+		wall_y_jump_spd = -6.5;
+		wall_slide_spd_max = 2; 	//the lower the slower
+		wall_jump_delay = 0;
+		wall_jump_delay_max = 15; 	//how long in frames you cant control direction after wall jumping
+		wall_dust = 0;
+		side = bbox_right
+		//Ledge Grabbing
+			grabbing_ledge = false;
 
 
 //health
@@ -92,9 +89,8 @@ collision = [oWall, col_tiles];
 	hit_flashTimer = 0;
 	hit_flashTime = 10;
 	
-//attack
-	damage = 8;
-	
+	equipped_ability = method(oPlayer, oGame.equipped_ability)
+
 
 
 //snd stuff
@@ -121,6 +117,8 @@ collision = [oWall, col_tiles];
 	spr_ledgegrab 	= sPlayer1LedgeGrab
 	spr_dashFlip  	= sPlayer1Flip_weapon
 	spr_dashAir   	= sPlayer1Crawl_weapon
+	spr_deadGround	= sPlayer1Dead_weapon
+	spr_deadAir		= sPlayer1DeadAir_weapon
 
 	current_sprite = sprite_index;
 
@@ -147,6 +145,13 @@ collision = [oWall, col_tiles];
  runKey 	= keyboard_check(vk_lshift);
  grounded 	= place_meeting( x, y+1, oWall);
 
+//State Cutscene
+stateCutscene = function(){
+	if (!exists(oCutscene)) {
+		state_to(stateFree)
+	}
+	cutSpd()
+}
 
 //State Free
 stateFree = function()
@@ -282,7 +287,7 @@ stateFree = function()
 	
 	var can_swing = distance_to_object(oRobot_Hooker) <= aBLOCK /2
 	
-	if (mouse_check_button(mb_right) || rbBtn) {
+	if (mouse_check_button(mb_right) || rtBtn) {
 		if (can_swing) {
 			pivot_point = instance_nearest(x, y, oRobot_Hooker);
 			state = stateSwinging
@@ -610,7 +615,7 @@ stateSwinging = function(){
 		}
 	}
 	
-	if (!(mouse_check_button(mb_right) || rbBtn) ) {
+	if (!(mouse_check_button(mb_right) || rtBtn) ) {
 		pivot_point.can_float = true;
 		pivot_point.is_grabbed = false;
 		pivot_point = noone;
@@ -645,11 +650,13 @@ stateSwinging = function(){
 }
 
 stateDead = function(){
-	if (gamestate_is(GAMESTATE.PLAYING)) {
+	if (hp > 0) {
 		state = stateFree;
 	}
 	#region Movement
 		#region Add Movement to variables
+			decelerate()
+			getGrav(grav, maxGravSpd); show_debug_message("Grav")
 			// Handle Collisions
 				getCollisions(1, 1, 1, function(){
 					slideTimer = 0;
@@ -659,7 +666,8 @@ stateDead = function(){
 				);
 		#endregion
 		#region  Apply to Position
-			x += xspd;
+			x += xspd; show_debug_message(xspd)
+			y += yspd; show_debug_message(yspd)
 		#endregion
 	#endregion
 }

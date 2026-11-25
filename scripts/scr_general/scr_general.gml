@@ -43,9 +43,6 @@ function instance_nearest_array(_x, _y, _inst = []){
 }
 
 
-function exists(_id){
-	return instance_exists(_id)
-}
 
 function spawn(_inst, _x=x, _y=y, _depth=depth, _struct={}){
 	return instance_create_depth(_x, _y, _depth, _inst, _struct)
@@ -181,7 +178,18 @@ function is_even(num) {
     return num mod 2 == 0;
 }
 
-
+/**
+ * @param {Id} _id Objects to check for.
+ * @param {Id} ... Other objects to check for.
+*/
+function exists(_id){
+	for (var i = 0; i < argument_count; i++) {
+        if (instance_exists(argument[i])) {
+            return true;
+        }
+    }
+	return false;
+}
 /**
  * @param {asset.GMRoom} _room Room to check for.
  * @param {asset.GMRoom} ... Other rooms to check for.

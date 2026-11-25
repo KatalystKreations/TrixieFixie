@@ -10,8 +10,8 @@
   "name":"oHitbox",
   "overriddenProperties":[],
   "parent":{
-    "name":"Collisions",
-    "path":"folders/Objects/Collisions.yy",
+    "name":"Ugly",
+    "path":"folders/Objects/Collisions/Ugly.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -8,3 +8,4 @@ draw_text(200, margin, string(face));
 
 margin += 20;
 draw_text(200, margin, string(moveDir));
+

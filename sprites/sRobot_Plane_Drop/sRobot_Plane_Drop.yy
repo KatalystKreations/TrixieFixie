@@ -31,7 +31,7 @@
   "origin":4,
   "parent":{
     "name":"sRobot_Plane",
-    "path":"folders/Sprites/Enemies/sRobot_Plane.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/sRobot_Plane.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -48,7 +48,13 @@
     "backdropYOffset":0.0,
     "events":{
       "$KeyframeStore<MessageEventKeyframe>":"",
-      "Keyframes":[],
+      "Keyframes":[
+        {"$Keyframe<MessageEventKeyframe>":"","Channels":{
+            "0":{"$MessageEventKeyframe":"","Events":[
+                "drop",
+              ],"resourceType":"MessageEventKeyframe","resourceVersion":"2.0",},
+          },"Disabled":false,"id":"3515cd88-708e-4944-99b9-f5b71b0582e8","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<MessageEventKeyframe>","resourceVersion":"2.0","Stretch":false,},
+      ],
       "resourceType":"KeyframeStore<MessageEventKeyframe>",
       "resourceVersion":"2.0",
     },

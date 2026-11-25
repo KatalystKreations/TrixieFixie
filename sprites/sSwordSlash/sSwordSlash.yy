@@ -31,8 +31,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Main",
-    "path":"folders/Sprites/Players/Main.yy",
+    "name":"Other",
+    "path":"folders/Sprites/ENITITIES/Player/Other.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

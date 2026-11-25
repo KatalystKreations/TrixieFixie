@@ -31,7 +31,7 @@
   "origin":4,
   "parent":{
     "name":"sRobot_Trolly",
-    "path":"folders/Sprites/Collisions/sRobot_Trolly.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/sRobot_Trolly.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

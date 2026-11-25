@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"Trixie",
-    "path":"folders/Sprites/Players/Main/Trixie.yy",
+    "path":"folders/Sprites/ENITITIES/NPC/Trixie.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

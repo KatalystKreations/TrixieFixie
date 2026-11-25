@@ -24,7 +24,7 @@ if gamestate_is(GAMESTATE.PLAYING) && !disabled	state();
 //show_debug_message(string(state_name))
 
 //agro
-if (distance_to_object(oPlayer) < 10 && (state == statePatrol || state == stateIdle) && state != stateAgro) {
+if (distance_to_object(oPlayer_par) < 10 && (state == statePatrol || state == stateIdle) && state != stateAgro) {
 	state = stateAgro
 }
 

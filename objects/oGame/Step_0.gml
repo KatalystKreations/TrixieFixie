@@ -4,7 +4,6 @@ if (mouse_check_button_pressed(mb_left)) {
 }
 
 
-
 if (alarm[0] > 0) {
 	set_gamestate(GAMESTATE.DEAD)
 }

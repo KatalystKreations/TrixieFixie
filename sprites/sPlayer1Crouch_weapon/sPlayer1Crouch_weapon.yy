@@ -30,7 +30,7 @@
   "origin":9,
   "parent":{
     "name":"Lyra",
-    "path":"folders/Sprites/Players/Main/Lyra.yy",
+    "path":"folders/Sprites/ENITITIES/Player/Lyra.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

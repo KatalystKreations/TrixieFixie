@@ -12,7 +12,10 @@
     "name":"Players",
     "path":"folders/Objects/ENTITES/Players.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oEntity",
+    "path":"objects/oEntity/oEntity.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,6 +31,7 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"_player_id","filters":[],"listItems":[],"multiselect":false,"name":"_player_id","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"damage","filters":[],"listItems":[],"multiselect":false,"name":"damage","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"8.0","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

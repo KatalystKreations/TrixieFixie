@@ -44,8 +44,8 @@
   },
   "origin":4,
   "parent":{
-    "name":"Collisions",
-    "path":"folders/Sprites/Collisions.yy",
+    "name":"Ugly",
+    "path":"folders/Sprites/Collisions/Ugly.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

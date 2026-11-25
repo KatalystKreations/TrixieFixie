@@ -29,7 +29,7 @@
   "origin":4,
   "parent":{
     "name":"sRobot_Hooker",
-    "path":"folders/Sprites/Enemies/sRobot_Hooker.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/sRobot_Hooker.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

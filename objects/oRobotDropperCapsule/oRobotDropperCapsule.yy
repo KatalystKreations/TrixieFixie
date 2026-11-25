@@ -9,14 +9,16 @@
   ],
   "managed":true,
   "name":"oRobotDropperCapsule",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oProjectile_new","path":"objects/oProjectile_new/oProjectile_new.yy",},"propertyId":{"name":"can_deflect","path":"objects/oProjectile_new/oProjectile_new.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
+  ],
   "parent":{
     "name":"Enemies",
     "path":"folders/Objects/ENTITES/Enemies.yy",
   },
   "parentObjectId":{
-    "name":"oProjectile",
-    "path":"objects/oProjectile/oProjectile.yy",
+    "name":"oProjectile_new",
+    "path":"objects/oProjectile_new/oProjectile_new.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

@@ -78,9 +78,7 @@ curve_create()
 	hit_flashTimer = 0;
 	hit_flashTime = 10;
 	
-//attack
-	damage = 8;
-	
+
 
 
 #region Sounds
@@ -107,6 +105,7 @@ curve_create()
 	spr_slide = sPlayer1Slide
 	spr_wallslide = sPlayer1WallSlide
 	spr_ledgegrab = sPlayer1LedgeGrab
+	spr_Dead = sPlayer1Dead
 
 	current_sprite = sprite_index;
 #endregion
@@ -132,7 +131,7 @@ curve_create()
  jumpKeyPressed = keyboard_check_pressed( ord("I") );
  runKey = keyboard_check(vk_rshift);
  grounded = place_meeting( x, y+1, collision);
-
+ on_wall =  false
 
 //State Free
 stateFree = function()
@@ -254,6 +253,48 @@ stateFree = function()
 			}
 #endregion
 
+	
+	#region Combat
+		_h = noone;
+	if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
+		_h = noone;
+		var
+		_x = 15.00, 
+		_y = -21.40, 
+		_xs = 1.50, 
+		_ys = 1.80, 
+		_frames = 1 
+		
+		if (rightKey || leftKey) {
+			
+		}
+		if (upKey) {
+			_x = 2.00 
+			_y = -58 
+			_xs = 3.00 
+			_ys = 1.00 
+			_frames = 1 
+		}
+		if (downKey) {
+			_x = 2.20 
+			_y = 8.40 
+			_xs = 1.40 
+			_ys = 1.95 
+			_frames = 1 
+		}
+		
+		
+		_h = spawn_hitbox(
+			_x,  _y, 
+			damage, 
+			_frames, 
+			_xs, _ys
+		)
+		 
+	}	
+
+#endregion
+	
 	#region Movement
 		#region Add Movement to variables
 			// Handle Gravity	
@@ -275,6 +316,8 @@ stateFree = function()
 			y += yspd;
 		#endregion
 	#endregion
+	
+	
 	
 	return "Free";
 	
@@ -481,8 +524,29 @@ stateOnWall = function()
 	return "WallSlide";
 }
 
-
-
+// State Dead
+stateDead = function(){
+	if (hp > 0) {
+		state = stateFree;
+	}
+	#region Movement
+		#region Add Movement to variables
+			decelerate()
+			getGrav()
+			// Handle Collisions
+				getCollisions(1, 1, 1, function(){
+					slideTimer = 0;
+					slideBoostTimer = 0;
+					dashTimer = 0;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+}
 
 state = stateFree;
 

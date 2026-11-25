@@ -46,8 +46,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"Tile Sets",
-    "path":"folders/Tile Sets.yy",
+    "name":"Sprites",
+    "path":"folders/Tile Sets/Sprites.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

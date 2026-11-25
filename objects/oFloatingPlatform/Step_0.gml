@@ -1,5 +1,5 @@
 // 1. Check if the player is landing on top of the platform
-var _player_on_top = instance_place(x, y - 1, oPlayer);
+var _player_on_top = instance_place(x, y - 1, oPlayer_par);
 
 if (_player_on_top != noone) {
     // Player is standing on it, sink down

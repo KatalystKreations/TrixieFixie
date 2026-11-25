@@ -29,7 +29,7 @@
   "origin":9,
   "parent":{
     "name":"sRobot_Dropper",
-    "path":"folders/Sprites/Enemies/sRobot_Dropper.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/sRobot_Dropper.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

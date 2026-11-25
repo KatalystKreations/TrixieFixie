@@ -84,3 +84,6 @@ start_image_xscale = image_xscale;
 start_image_yscale = image_yscale;
 
 #endregion
+
+stateFree = function(){}
+stateDead = function(){}

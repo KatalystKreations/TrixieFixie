@@ -1,12 +1,24 @@
+display_set_gui_size(getCamW(1), getCamH(1))
+
 var margin = 20;
+var gui_w = getCamW();
 
-if (instance_exists(oPlayer)){
-draw_healthbar(110, 23, 190, 73, oPlayer.hp, #666666, #D32300, c_red, 0, 1, 0)
+// Top-left
+draw_player_hud(
+    oPlayer,
+    margin,
+    margin,
+    false
+);
 
-//player img
-draw_sprite_ext(sPlayerHealth_hud, 1, margin, margin, 1, 1, 0, -1, 1)
+// Top-right (mirrored)
+draw_player_hud(
+    oPlayer_2,
+    gui_w - margin,
+    margin,
+    true
+);
 
-//healthbar rim
-draw_sprite_ext(sPlayerHealth_hud_1, 1, margin+84, margin, 1, 1, 0, -1, 1)
+display_set_gui_size(-1, -1);
 
-}
+

@@ -17,5 +17,6 @@ sha_add = 1
 
 //draw_sprite(sDustWallSlide, 0, x, y-sprite_get_height(sPlayer1Idle))
 
+//debug_draw_hitbox_frame()
 
 

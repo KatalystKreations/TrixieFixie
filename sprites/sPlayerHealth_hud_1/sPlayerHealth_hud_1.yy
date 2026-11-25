@@ -45,7 +45,7 @@
   "origin":0,
   "parent":{
     "name":"Hud",
-    "path":"folders/Sprites/Players/Others/Hud.yy",
+    "path":"folders/Sprites/ENITITIES/Player/Other/Hud.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

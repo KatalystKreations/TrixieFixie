@@ -15,6 +15,30 @@ curve_step()
 	runKey += xBtn;
 	clamp(runKey, 0, 1)
 // Ground
+	with (oTempPlatform)
+	{
+	    // If the platform is not activated		
+			if (!active)
+		    {
+				// Check if it's already in the collision list
+			        if (!array_contains(other.collision, id))
+			        {
+						// If not in the list, add it to the list
+			            array_push(other.collision, id);
+			        }
+		    }
+		// If the platform is active
+		    else
+		    {
+				// Remove self as collision
+			        var ind = array_get_index(other.collision, id);
+				
+			        if (ind != -1)
+			        {
+			            array_delete(other.collision, ind, 1);
+			        }
+		    }
+	}
 	grounded = place_meeting( x, y+1, collision);
 	ground = instance_place(x, y+1, collision[0])
 // Direction
@@ -60,7 +84,14 @@ if (!global.player2_joined && instance_exists(oPlayer_2)) {
 
 //run state code if game is not paused
 if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) {
+	
+	//Switch to Cutscene State
+	if (exists(oCutscene, oDialogue)) {
+		state_to(stateCutscene)
+	}
+	
 	state();
+	// Crouch Attack
 	if (state_is(stateCrawl, stateCrouch, stateSlide)) {
 		#region Combat
 			if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
@@ -83,6 +114,13 @@ if gamestate_is(GAMESTATE.PLAYING) || gamestate_is(GAMESTATE.DEAD) {
 		#endregion
 		
 	}
+	
+	// Use Ability
+	if (rbBtn_pressed || mouse_check_button_pressed(mb_middle)) {
+		equipped_ability()
+	}
+	
+
 }
 
 
@@ -174,16 +212,23 @@ if (hit_flashTimer)
 			sprite_index = spr_slide
 			with (instance_create_layer(x, bbox_bottom, "FX", oDustWallSlide)){}
 		}
+		// Crouch
 		if (crouching){
 			mask_index = spr_slide; 
 			sprite_index = spr_crouch
 		}
+		//Crawling
 		if (crawling){
 			mask_index = spr_slide; 
 			sprite_index = spr_crawl
 		}
+		// grab ledge
 		if (grabbing_ledge){
 			sprite_index = spr_ledgegrab
+		}
+		// Dead on Ground
+		if (state_is(stateDead)) {
+			sprite(spr_deadGround)
 		}
 	}
 	#endregion
@@ -196,6 +241,7 @@ if (hit_flashTimer)
 		//if falling
 		if (yspd > 0){ 
 			sprite_index = spr_fall;
+			// On Wall
 			if (on_wall) {
 			sprite_index = spr_wallslide
 				
@@ -207,7 +253,12 @@ if (hit_flashTimer)
 					wall_dust = 0;  
 				}
 			}
+			
 		} 
+		// Dead In Air
+		if (state_is(stateDead)) {
+			sprite(spr_deadAir)
+		}
 		//if rising
 		if (yspd < 0){ sprite_index = spr_jump}
 		if (yspd > -2 && yspd < 2) { sprite_index = spr_jump_trans}

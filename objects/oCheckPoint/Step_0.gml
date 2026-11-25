@@ -2,6 +2,6 @@ if (active && sprite_index != sCheckPointActivating && sprite_index != sCheckPoi
 	sprite_index = sCheckPointActivating
 }
 
-if (collision_line(x, y, x, 0, oPlayer_par, false, false)) {
+if (!active && collision_line(x, y, x, max_detection_point_y, oPlayer_par, false, false)) {
 	activate()
 }

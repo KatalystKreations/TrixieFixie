@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"Bosses",
-    "path":"folders/Sprites/Enemies/Bosses.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/Bosses.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

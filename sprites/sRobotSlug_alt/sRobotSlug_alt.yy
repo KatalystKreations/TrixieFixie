@@ -35,7 +35,7 @@
   "origin":7,
   "parent":{
     "name":"RobotSlug",
-    "path":"folders/Sprites/Enemies/RobotSlug.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/RobotSlug.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

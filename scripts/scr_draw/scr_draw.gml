@@ -1,4 +1,14 @@
 	
+
+function draw_reset(){
+	draw_set_alpha(1)
+	draw_set_colour(c_white)
+	draw_set_halign(fa_left)
+	draw_set_valign(fa_top)
+	draw_set_font(-1)
+}
+
+
 /// @desc  Make it look like it's glowing... in every direction.
 /// @param {real} [_border]= (1) Size.
 /// @param {constant.color} [_col]= (c_white) Color.

@@ -33,13 +33,15 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"canMove","filters":[],"listItems":[],"multiselect":false,"name":"canMove","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
-    {"$GMObjectProperty":"v2","%Name":"moveDist","filters":[],"listItems":[],"multiselect":false,"name":"moveDist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1*aBLOCK","varType":4,},
+    {"$GMObjectProperty":"v2","%Name":"moveDist","filters":[],"listItems":[],"multiselect":false,"name":"moveDist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varDescription":"How many blacks to move","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"moveSpd","filters":[],"listItems":[],"multiselect":false,"name":"moveSpd","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"2","varType":1,},
-    {"$GMObjectProperty":"v2","%Name":"restTime","filters":[],"listItems":[],"multiselect":false,"name":"restTime","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1*aSECOND","varType":4,},
+    {"$GMObjectProperty":"v2","%Name":"restTime","filters":[],"listItems":[],"multiselect":false,"name":"restTime","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1.0","varDescription":"(in seconds)","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"face","filters":[],"listItems":[
         "RIGHT",
         "LEFT",
       ],"multiselect":false,"name":"face","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"RIGHT","varType":6,},
+    {"$GMObjectProperty":"v2","%Name":"sink_distance","filters":[],"listItems":[],"multiselect":false,"name":"sink_distance","rangeEnabled":true,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varDescription":"How many pixels it sinks \r\n(In Blocks[32])","varFriendlyName":"Sink Distance","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"sink_speed","filters":[],"listItems":[],"multiselect":false,"name":"sink_speed","rangeEnabled":true,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varDescription":"Sinking smoothness (0.0 to 1.0) \r\n[0 = 0.0]\r\n[10 = 1.0]","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

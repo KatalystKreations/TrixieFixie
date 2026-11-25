@@ -53,6 +53,7 @@ function fire_projectile(origin_x, origin_y, target_x, target_y, obj_proj=oProje
 /// @param force - knockback strength
 
 function apply_knockback(attacker, target, force, bouce_up = true) {
+	if !exists(attacker) || !exists(target) exit;
     var dir = point_direction(attacker.x, attacker.y+10, target.x, target.y-10);
     target.xspd = lengthdir_x(force, dir);
     target.yspd = lengthdir_y(force, dir);

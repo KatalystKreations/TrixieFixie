@@ -32,7 +32,7 @@
   "origin":4,
   "parent":{
     "name":"sRobot_Plane",
-    "path":"folders/Sprites/Enemies/sRobot_Plane.yy",
+    "path":"folders/Sprites/ENITITIES/Enemies/sRobot_Plane.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

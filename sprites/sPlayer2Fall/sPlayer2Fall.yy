@@ -27,7 +27,7 @@
   "origin":7,
   "parent":{
     "name":"Ivy",
-    "path":"folders/Sprites/Players/Ivy.yy",
+    "path":"folders/Sprites/ENITITIES/NPC/Ivy.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
