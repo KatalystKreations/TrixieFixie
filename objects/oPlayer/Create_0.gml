@@ -61,7 +61,19 @@ curve_create()
 		//jump buffering
 			jumpBufferTimer = 0;
 			jumpBufferTime = 5;
+	//Zipline
+		zip_tilt = -5;            // Angle in degrees above horizontal (0 = flat, 45 = steep)
+		zip_max_dist = 20*aBLOCK;       // Max range in pixels
+		zip_spd = 6;             // Travel speed along the line
 		
+		zip_start_x = 0;
+		zip_start_y = 0;
+		zip_end_x = 0;
+		zip_end_y = 0;
+		zip_angle = 0;
+		
+
+
 // Collsions
 	col_tiles = layer_tilemap_get_id("MainTiles");
 	collision = [oWall, col_tiles];
@@ -157,192 +169,212 @@ stateCutscene = function(){
 stateFree = function()
 {
 	
-#region //X Movement 
-	//timers
-		dashCooldown = max(0, dashCooldown-1)
-		slideBoostTimer = max(slideBoostTimer-1, 0)
-		slideTimer = max(slideTimer-1, 0);
-		wall_jump_delay = max(wall_jump_delay-1, 0)
-	if (slideBoostTimer && !slideBoosted) {slideBoosted = true; xspd *= 1.4}
-		
-	// Slide -Fixme
-	if (downKeyPressed && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
-		{
-			slideTimer = slideTime
-			state = stateSlide;
-		}
-	// Dash
-	if ((keyboard_check_pressed(vk_space) || yBtnPressed) && can_dash) {
-		if (dashCooldown <= 0) {
-			dashCooldown = dashCooldownMax;
-			dashTimer = grounded ? dashTime*2 : dashTime;
-			can_dash = false;
-			state = stateDash;
-		}
-	}
-	// Run
-	if (wall_jump_delay == 0 && !is_sliding && !slideBoostTimer && !oGame.alarm[0])
-	{
-		//Get X speed
-		    //switch sprint speed
-				runType = runKey;
-		
-
-		// Slide boosting
-		if (slideBoostTimer > 0)
-		{
-		runType = 3
-		}
-		
-		
-		// Crouch
-		if (downKey && grounded && abs(xspd) < moveSpd[0]-2 ){
-			xspd = 0; 
-			yspd = 0;
-			state = stateCrouch;
-		}
+	#region //X Movement 
+		//timers
+			dashCooldown = max(0, dashCooldown-1)
+			slideBoostTimer = max(slideBoostTimer-1, 0)
+			slideTimer = max(slideTimer-1, 0);
+			wall_jump_delay = max(wall_jump_delay-1, 0)
+		if (slideBoostTimer && !slideBoosted) {slideBoosted = true; xspd *= 1.4}
 			
-			//Acceleration
-				if (moveDir != 0) {xspd += moveDir*(acceleration*3)}
-			//Deceleration
-				if (abs(xspd) > 0 && moveDir == 0) {xspd -= (sign(xspd)*deceleration)}
-			//come to a complete stop when super slow
-				if (!moveDir && abs(xspd) < deceleration) {xspd = 0}
-			//Run Cap
-				//if (abs(xspd) > moveSpd[runType]) {xspd -= sign(xspd)*.95}
-				var targetSpd = clamp(xspd, -moveSpd[runType], moveSpd[runType]);
-				xspd = lerp(xspd, targetSpd, 0.2); // 0.1 is the easing factor
-	}
-	
-
-	
-#endregion
-
-#region //Y Movement
-	
-	#region //Jumping
-			//landing dust and sound
-				if (!grounded) 
-				{
-					dustLand = false;
-					slideTimer = 0
-					
-				}
-				if (grounded && !dustLand)
-				{
-					dustLand = true;
-					var landDust = instance_create_layer(x, y, "FX", oDustLand);
-					//jump land snd
-						audio_play_sound(snd_jump_land, 1, false, 1, 0, random_range(0.9, 1.8))
-				}
-			//reset jump when on ground
-				if (grounded)
-				{
-					coyoteTimer = coyoteTime
-					jumped = false;
-				}	
-				else coyoteTimer--
+		// Slide -Fixme
+		if (downKeyPressed && grounded && abs(xspd)>moveSpd[0]-1 && !is_sliding) 
+			{
+				slideTimer = slideTime
+				state = stateSlide;
+			}
+		// Dash
+		if ((keyboard_check_pressed(vk_space) || yBtnPressed) && can_dash) {
+			if (dashCooldown <= 0) {
+				dashCooldown = dashCooldownMax;
+				dashTimer = grounded ? dashTime*2 : dashTime;
+				can_dash = false;
+				state = stateDash;
+			}
+		}
+		// Run
+		if (wall_jump_delay == 0 && !is_sliding && !slideBoostTimer && !oGame.alarm[0])
+		{
+			//Get X speed
+			    //switch sprint speed
+					runType = runKey;
 			
-			//allow jump with lenience (jumpkey and onground)
-				if (jumpBufferTimer && coyoteTimer && !oGame.alarm[0])
-				{
-					jumpTimer = jumpTime;
-					
-					if (slideBoostTimer) {yspd = jspd-(slideBoost/2)}
-					coyoteTimer = 0
-					jumpBufferTimer = 0
-					
-					if (!jumped)
+	
+			// Slide boosting
+			if (slideBoostTimer > 0)
+			{
+			runType = 3
+			}
+			
+			
+			// Crouch
+			if (downKey && grounded && abs(xspd) < moveSpd[0]-2 ){
+				xspd = 0; 
+				yspd = 0;
+				state = stateCrouch;
+			}
+				
+				//Acceleration
+					if (moveDir != 0) {xspd += moveDir*(acceleration*3)}
+				//Deceleration
+					if (abs(xspd) > 0 && moveDir == 0) {xspd -= (sign(xspd)*deceleration)}
+				//come to a complete stop when super slow
+					if (!moveDir && abs(xspd) < deceleration) {xspd = 0}
+				//Run Cap
+					//if (abs(xspd) > moveSpd[runType]) {xspd -= sign(xspd)*.95}
+					var targetSpd = clamp(xspd, -moveSpd[runType], moveSpd[runType]);
+					xspd = lerp(xspd, targetSpd, 0.2); // 0.1 is the easing factor
+		}
+		
+	
+		
+	#endregion
+	
+	#region //Y Movement
+		
+		#region //Jumping
+				//landing dust and sound
+					if (!grounded) 
 					{
-						jumped = true;
-						//dust fx
-							dustLand = false;
-							var jDust = instance_create_layer(x, y, "FX", oDustJump);
-							jDust.image_xscale = 1.5;
-							jDust.image_yscale = 1.5;
-						//jump snd
-						audio_play_sound(snd_jump_up, 1, false, 1, 0, random_range(0.9, 1.8))
+						dustLand = false;
+						slideTimer = 0
+						
 					}
-				}
-				if (jumpTimer) {
-						yspd = jspd;
-						jumpTimer--
+					if (grounded && !dustLand)
+					{
+						dustLand = true;
+						var landDust = instance_create_layer(x, y, "FX", oDustLand);
+						//jump land snd
+							audio_play_sound(snd_jump_land, 1, false, 1, 0, random_range(0.9, 1.8))
+					}
+				//reset jump when on ground
+					if (grounded)
+					{
+						coyoteTimer = coyoteTime
+						jumped = false;
+					}	
+					else coyoteTimer--
+				
+				//allow jump with lenience (jumpkey and onground)
+					if (jumpBufferTimer && coyoteTimer && !oGame.alarm[0])
+					{
+						jumpTimer = jumpTime;
+						
+						if (slideBoostTimer) {yspd = jspd-(slideBoost/2)}
+						coyoteTimer = 0
+						jumpBufferTimer = 0
+						
+						if (!jumped)
+						{
+							jumped = true;
+							//dust fx
+								dustLand = false;
+								var jDust = instance_create_layer(x, y, "FX", oDustJump);
+								jDust.image_xscale = 1.5;
+								jDust.image_yscale = 1.5;
+							//jump snd
+							audio_play_sound(snd_jump_up, 1, false, 1, 0, random_range(0.9, 1.8))
+						}
+					}
+					if (jumpTimer) {
+							yspd = jspd;
+							jumpTimer--
+						}
+		#endregion
+				
+			
+			
+			// Wall detection
+				 on_wall_left  = place_meeting(x - 1, y, collision);
+				 on_wall_right = place_meeting(x + 1, y, collision);
+				 on_wall = on_wall_left || on_wall_right;
+				// Wall slide state
+					if (on_wall && !grounded) { 
+						state = stateOnWall 
 					}
 	#endregion
+		
+		
+	#region Swinging
+		
+		var can_swing = distance_to_object(oRobot_Hooker) <= aBLOCK /2
+		
+		if (mouse_check_button(mb_right) || rtBtn) {
+			if (can_swing) {
+				pivot_point = instance_nearest(x, y, oRobot_Hooker);
+				state = stateSwinging
+			}
+		}
+		
+		
+	#endregion
+	
+	#region Combat
+			_h = noone;
+		if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
+			_h = noone;
+			var
+			_x = 23.60, 
+			_y = -23.80, 
+			_xs = 2.20, 
+			_ys = 2.97, 
+			_frames = 1 
 			
+			if (rightKey || leftKey) {
+				_x = 29.80
+				_y = -27.60
+				_xs = 2.60
+				_ys = 2.07
+				_frames = 5 
+			}
+			if (upKey) {
+				_x = -1.20
+				_y = -55.20
+				_xs = 2.72
+				_ys = 1.65
+				_frames = 10 
+			}
+			if (downKey) {
+				_x = -1.20 
+				_y = 32.60 
+				_xs = 2.72 
+				_ys = -3.95 
+				_frames = 4 
+			}
+			
+			
+			_h = spawn_hitbox(
+				_x,  _y, 
+				damage, 
+				_frames, 
+				_xs, _ys
+			)
+			 
+		}	
+	
+	#endregion
 		
+	#region Jump Pads
+		var _spring = instance_place(x, y + 1, oJumpPad);
+		if (_spring == noone) _spring = instance_place(x + sign(xspd), y, oJumpPad);
 		
-		// Wall detection
-			 on_wall_left  = place_meeting(x - 1, y, collision);
-			 on_wall_right = place_meeting(x + 1, y, collision);
-			 on_wall = on_wall_left || on_wall_right;
-			// Wall slide state
-				if (on_wall && !grounded) { 
-					state = stateOnWall 
-				}
-#endregion
-	
-	
-#region Swinging
-	
-	var can_swing = distance_to_object(oRobot_Hooker) <= aBLOCK /2
-	
-	if (mouse_check_button(mb_right) || rtBtn) {
-		if (can_swing) {
-			pivot_point = instance_nearest(x, y, oRobot_Hooker);
-			state = stateSwinging
-		}
-	}
-	
-	
-#endregion
-
-#region Combat
-		_h = noone;
-	if (mouse_check_button_pressed(mb_left) || rtBtn_pressed) {
-		_h = noone;
-		var
-		_x = 23.60, 
-		_y = -23.80, 
-		_xs = 2.20, 
-		_ys = 2.97, 
-		_frames = 1 
-		
-		if (rightKey || leftKey) {
-			_x = 29.80
-			_y = -27.60
-			_xs = 2.60
-			_ys = 2.07
-			_frames = 5 
-		}
-		if (upKey) {
-			_x = -1.20
-			_y = -55.20
-			_xs = 2.72
-			_ys = 1.65
-			_frames = 10 
-		}
-		if (downKey) {
-			_x = -1.20 
-			_y = 32.60 
-			_xs = 2.72 
-			_ys = -3.95 
-			_frames = 4 
+		if (_spring != noone && _spring.cooldown <= 0) {
+			// 1. Calculate total incoming speed (magnitude of the velocity vector)
+			var _incoming_spd = point_distance(0, 0, xspd, yspd);
+			
+			// 2. Apply multiplier and enforce min/max limits
+			var _final_spd = clamp(_incoming_spd * _spring.momentum_mult, _spring.min_launch_spd, _spring.max_launch_spd);
+			
+			// 3. Convert speed + angle into new xspd and yspd
+			xspd = lengthdir_x(_final_spd, _spring.launch_angle);
+			yspd = lengthdir_y(_final_spd, _spring.launch_angle);
+			
+			// 4. Trigger cooldown and switch player state
+			_spring.cooldown = 10;
+			state_to(stateLaunch);
 		}
 		
-		
-		_h = spawn_hitbox(
-			_x,  _y, 
-			damage, 
-			_frames, 
-			_xs, _ys
-		)
-		 
-	}	
-
-#endregion
-	
-	
+	#endregion
 	
 	#region Movement
 		#region Add Movement to variables
@@ -578,8 +610,8 @@ stateDash = function()
 	if (jumpKeyPressed) {
 		dashTimer = 0
 		dashCooldown = dashCooldownMax;
-		slideBoostTimer = slideBoostTime; 
 		state = stateFree;
+		slideBoostTimer = slideBoostTime; 
 	}
 	
 	#region Movement
@@ -649,6 +681,90 @@ stateSwinging = function(){
 	
 }
 
+//State Launch
+stateLaunch = function(){
+	// Inside your PlayerState.SPRING 
+	
+	// Allow subtle mid-air steering without erasing launch speed
+	var _air_accel = 0.25;
+	xspd += moveDir * _air_accel;
+	
+	// Apply normal gravity
+	//yspd += grav;
+	
+	// Exit the spring state once the player starts falling or touches the ground
+	if (yspd >= 0 || place_meeting(x, y + 1, collision)) {
+	    state_to(stateFree);
+	}
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+}
+
+// State ZipLine
+stateZipline = function(){
+	// Inside your PlayerState.ZIPLINE switch case
+	xspd = lengthdir_x(zip_spd, zip_angle);
+	yspd = lengthdir_y(zip_spd, zip_angle);
+	
+	// Check if close to the anchor point or about to hit a wall
+	var _dist_left = point_distance(x, bbox_top, zip_end_x, zip_end_y);
+	
+	if (_dist_left <= zip_spd || place_meeting(x + xspd, y + yspd, collision)) {
+	    // Reached the end: stop cleanly or give a small pop
+	    xspd = 0;
+	    yspd = -2; 
+	    state_to(stateFree);
+	} 
+	else if (jumpKeyPressed) {
+	    // Jump off mid-zip: keep horizontal momentum and add jump speed
+	    yspd = jspd;
+	    state_to(stateFree);
+	}
+	
+	#region Movement
+		#region Add Movement to variables
+			// Handle Gravity	
+				getGrav(grav, maxGravSpd);
+			// Handle Collisions
+				getCollisions(1, 1, 1, 
+					function(){
+						slideTimer = 0;
+						slideBoostTimer = 0
+					},
+					-1,
+					function (){
+						can_dash = true;
+					}
+				);
+		#endregion
+		#region  Apply to Position
+			x += xspd;
+			y += yspd;
+		#endregion
+	#endregion
+}
+
+// State Dead
 stateDead = function(){
 	if (hp > 0) {
 		state = stateFree;
@@ -656,7 +772,7 @@ stateDead = function(){
 	#region Movement
 		#region Add Movement to variables
 			decelerate()
-			getGrav(grav, maxGravSpd); show_debug_message("Grav")
+			getGrav(grav, maxGravSpd); 
 			// Handle Collisions
 				getCollisions(1, 1, 1, function(){
 					slideTimer = 0;
@@ -666,8 +782,8 @@ stateDead = function(){
 				);
 		#endregion
 		#region  Apply to Position
-			x += xspd; show_debug_message(xspd)
-			y += yspd; show_debug_message(yspd)
+			x += xspd; 
+			y += yspd; 
 		#endregion
 	#endregion
 }

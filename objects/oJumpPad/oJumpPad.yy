@@ -26,11 +26,16 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v2","%Name":"momentum_mult","filters":[],"listItems":[],"multiselect":false,"name":"momentum_mult","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"5","varType":1,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sJumpPad_3d_temp",
+    "path":"sprites/sJumpPad_3d_temp/sJumpPad_3d_temp.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

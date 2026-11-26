@@ -7,13 +7,53 @@ selected_index = -1;
 
 // Power definitions (replace sprites with your own)
 powers = [
-    { name: "Jump Pad",	   sprite: sRobot_Trolly_Idle_sml, 
+    { name: "Jump Pad",	   sprite: sJumpPad_3d_temp, 
 		func: function(){
-			spawn(oFloatingPlatform_sml,x,bbox_bottom-10)
+			with (oJumpPad) {
+				if (created_by_player) instance_destroy()
+			}
+			var jp = spawn(oJumpPad,x,bbox_bottom)
+			jp.launch_angle = point_direction(x,y, x+xspd, y+yspd)
+			jp.image_angle  = jp.launch_angle-90
+			jp.created_by_player = true
 			show_debug_message("PadJumped")
 		} },
     { name: "Grapple Up", sprite: sFrame, func: function(){} },
-    { name: "Zip Line",      sprite: sFrame, func: function(){} },
+    { name: "Zip Line",      sprite: sFrame, func: function(){
+		 
+		var _shoot_angle = (face == 1) ? zip_tilt : (180 - zip_tilt);
+	    
+	    var _hit = false;
+	    var _check_x = x;
+	    var _check_y = bbox_top;
+	    
+	    // Step along the ray in 4-pixel increments until hitting a wall or max range
+	    for (var _d = 16; _d <= zip_max_dist; _d += 4) {
+	        _check_x = x + lengthdir_x(_d, _shoot_angle);
+	        _check_y = bbox_top + lengthdir_y(_d, _shoot_angle);
+	        
+	        if (place_meeting(_check_x, _check_y, collision)) {
+	            _hit = true;
+	            break;
+	        }
+	    }
+	    
+	    // If a wall was hit, lock in the endpoints and switch states
+	    if (_hit) {
+	        zip_start_x = x;
+	        zip_start_y = bbox_top;
+	        zip_end_x = _check_x;
+	        zip_end_y = _check_y;
+	        zip_angle = point_direction(zip_start_x, zip_start_y, zip_end_x, zip_end_y);
+	        
+	        xspd = 0;
+	        yspd = 0;
+	        state_to(stateZipline);
+			dashTimer = 0
+			dashCooldown = dashCooldownMax;
+	    }
+		
+	} },
     { name: "Electric Arc", sprite: sFrame, func: function(){} },
     //{ name: "Mesmerize",   sprite: sFrame, func: function(){} },
     //{ name: "Shuriken",    sprite: sFrame, func: function(){} }

@@ -7,16 +7,7 @@
 function spawn_fade(_room_to_goto = undefined, _fadeinSpd = 0.025, _fadeoutSpd = 0.05, white=false){
 	if instance_exists(oFade) exit;
 	if (instance_exists(oPlayer)){
-		show_debug_message("HP: {0}", oGame.hp)
-		show_debug_message("MAX HP: {0}", oGame.hp_max)
-		show_debug_message(":---------------------:")
-		if (room_is_changed()) {
-			oGame.hp = oPlayer.hp
-			oGame.hp_max = oPlayer.hp_max
-			make_current_room()
-		}
-		show_debug_message("HP: {0}", oGame.hp)
-		show_debug_message("MAX HP: {0}", oGame.hp_max)
+		
 	}
 	var _inst = instance_create_depth(0, 0, -9999, oFade)
 	_inst.room_to_goto = _room_to_goto;

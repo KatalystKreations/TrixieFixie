@@ -6,11 +6,17 @@
 		draw_one_glow(0.5, _col)
 		shader_set(shd_Flash);
 	}
-
-
+// Allow shader to affect
 shader_set_uniform_f(uni_add, sha_add, 0)
 
-//draw_self();
+
+if (state_is(stateZipline)) {
+    draw_set_color(c_ltgray);
+    draw_line_width(x, bbox_top - 8, zip_end_x, zip_end_y, 2); // -8 offsets to hands/chest
+    draw_set_color(c_white);
+}
+
+//Draw self ext
 draw_sprite_ext(
 		sprite_index, 
 		image_index, 

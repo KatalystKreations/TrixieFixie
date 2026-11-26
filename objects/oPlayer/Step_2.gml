@@ -8,8 +8,11 @@
 	}
 //next room
 	if (bbox_left > room_width && !instance_exists(oFade)){
-		if room_exists(room_next(room))
-		var nxtrm_fade = spawn_fade(room_next(room));
+		if room_exists(room_next(room)) {
+			var nxtrm_fade = spawn_fade(room_next(room));
+			oGame.hp = oPlayer.hp
+			oGame.hp_max = oPlayer.hp_max
+		}
 		else {
 			if (show_question("DEMO COMPLETE!\nRestart?")){
 				game_restart()
